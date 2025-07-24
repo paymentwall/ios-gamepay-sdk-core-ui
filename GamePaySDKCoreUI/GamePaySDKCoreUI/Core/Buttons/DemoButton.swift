@@ -8,7 +8,7 @@
 import UIKit
 
 public class DemoButton: UIButton {
-    var theme: Theme!
+    let theme: Theme
     
     public init(theme: Theme) {
         self.theme = theme
@@ -17,7 +17,7 @@ public class DemoButton: UIButton {
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func applyTheme() {
