@@ -1,0 +1,638 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BA6F8D062E30F48D00D72B29 /* GamePaySDKCoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA6F8D032E30F47D00D72B29 /* GamePaySDKCoreUI.framework */; };
+		BA6F8D072E30F48D00D72B29 /* GamePaySDKCoreUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA6F8D032E30F47D00D72B29 /* GamePaySDKCoreUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BA6F8CC82E30F42F00D72B29 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BA6F8CA92E30F42E00D72B29 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BA6F8CB02E30F42E00D72B29;
+			remoteInfo = GamePaySDKCoreUIDemo;
+		};
+		BA6F8CD22E30F42F00D72B29 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BA6F8CA92E30F42E00D72B29 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BA6F8CB02E30F42E00D72B29;
+			remoteInfo = GamePaySDKCoreUIDemo;
+		};
+		BA6F8D022E30F47D00D72B29 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BA6F8CF52E30F47D00D72B29 /* GamePaySDKCoreUI.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BA6F8C8D2E30F3D800D72B29;
+			remoteInfo = GamePaySDKCoreUI;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BA6F8D082E30F48D00D72B29 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BA6F8D072E30F48D00D72B29 /* GamePaySDKCoreUI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		BA6F8CB12E30F42E00D72B29 /* GamePaySDKCoreUIDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GamePaySDKCoreUIDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA6F8CC72E30F42F00D72B29 /* GamePaySDKCoreUIDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GamePaySDKCoreUIDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA6F8CD12E30F42F00D72B29 /* GamePaySDKCoreUIDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GamePaySDKCoreUIDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA6F8CF52E30F47D00D72B29 /* GamePaySDKCoreUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GamePaySDKCoreUI.xcodeproj; path = ../GamePaySDKCoreUI/GamePaySDKCoreUI.xcodeproj; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		BA6F8CD92E30F42F00D72B29 /* Exceptions for "GamePaySDKCoreUIDemo" folder in "GamePaySDKCoreUIDemo" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = BA6F8CB02E30F42E00D72B29 /* GamePaySDKCoreUIDemo */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		BA6F8CB32E30F42E00D72B29 /* GamePaySDKCoreUIDemo */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BA6F8CD92E30F42F00D72B29 /* Exceptions for "GamePaySDKCoreUIDemo" folder in "GamePaySDKCoreUIDemo" target */,
+			);
+			path = GamePaySDKCoreUIDemo;
+			sourceTree = "<group>";
+		};
+		BA6F8CCA2E30F42F00D72B29 /* GamePaySDKCoreUIDemoTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = GamePaySDKCoreUIDemoTests;
+			sourceTree = "<group>";
+		};
+		BA6F8CD42E30F42F00D72B29 /* GamePaySDKCoreUIDemoUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = GamePaySDKCoreUIDemoUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BA6F8CAE2E30F42E00D72B29 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA6F8D062E30F48D00D72B29 /* GamePaySDKCoreUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA6F8CC42E30F42F00D72B29 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA6F8CCE2E30F42F00D72B29 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BA6F8CA82E30F42E00D72B29 = {
+			isa = PBXGroup;
+			children = (
+				BA6F8CF52E30F47D00D72B29 /* GamePaySDKCoreUI.xcodeproj */,
+				BA6F8CB32E30F42E00D72B29 /* GamePaySDKCoreUIDemo */,
+				BA6F8CCA2E30F42F00D72B29 /* GamePaySDKCoreUIDemoTests */,
+				BA6F8CD42E30F42F00D72B29 /* GamePaySDKCoreUIDemoUITests */,
+				BA6F8CE52E30F46300D72B29 /* Frameworks */,
+				BA6F8CB22E30F42E00D72B29 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BA6F8CB22E30F42E00D72B29 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BA6F8CB12E30F42E00D72B29 /* GamePaySDKCoreUIDemo.app */,
+				BA6F8CC72E30F42F00D72B29 /* GamePaySDKCoreUIDemoTests.xctest */,
+				BA6F8CD12E30F42F00D72B29 /* GamePaySDKCoreUIDemoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BA6F8CE52E30F46300D72B29 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BA6F8CFE2E30F47D00D72B29 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BA6F8D032E30F47D00D72B29 /* GamePaySDKCoreUI.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BA6F8CB02E30F42E00D72B29 /* GamePaySDKCoreUIDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA6F8CDA2E30F42F00D72B29 /* Build configuration list for PBXNativeTarget "GamePaySDKCoreUIDemo" */;
+			buildPhases = (
+				BA6F8CAD2E30F42E00D72B29 /* Sources */,
+				BA6F8CAE2E30F42E00D72B29 /* Frameworks */,
+				BA6F8CAF2E30F42E00D72B29 /* Resources */,
+				BA6F8D082E30F48D00D72B29 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				BA6F8CB32E30F42E00D72B29 /* GamePaySDKCoreUIDemo */,
+			);
+			name = GamePaySDKCoreUIDemo;
+			packageProductDependencies = (
+			);
+			productName = GamePaySDKCoreUIDemo;
+			productReference = BA6F8CB12E30F42E00D72B29 /* GamePaySDKCoreUIDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BA6F8CC62E30F42F00D72B29 /* GamePaySDKCoreUIDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA6F8CDF2E30F42F00D72B29 /* Build configuration list for PBXNativeTarget "GamePaySDKCoreUIDemoTests" */;
+			buildPhases = (
+				BA6F8CC32E30F42F00D72B29 /* Sources */,
+				BA6F8CC42E30F42F00D72B29 /* Frameworks */,
+				BA6F8CC52E30F42F00D72B29 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BA6F8CC92E30F42F00D72B29 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				BA6F8CCA2E30F42F00D72B29 /* GamePaySDKCoreUIDemoTests */,
+			);
+			name = GamePaySDKCoreUIDemoTests;
+			packageProductDependencies = (
+			);
+			productName = GamePaySDKCoreUIDemoTests;
+			productReference = BA6F8CC72E30F42F00D72B29 /* GamePaySDKCoreUIDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BA6F8CD02E30F42F00D72B29 /* GamePaySDKCoreUIDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA6F8CE22E30F42F00D72B29 /* Build configuration list for PBXNativeTarget "GamePaySDKCoreUIDemoUITests" */;
+			buildPhases = (
+				BA6F8CCD2E30F42F00D72B29 /* Sources */,
+				BA6F8CCE2E30F42F00D72B29 /* Frameworks */,
+				BA6F8CCF2E30F42F00D72B29 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BA6F8CD32E30F42F00D72B29 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				BA6F8CD42E30F42F00D72B29 /* GamePaySDKCoreUIDemoUITests */,
+			);
+			name = GamePaySDKCoreUIDemoUITests;
+			packageProductDependencies = (
+			);
+			productName = GamePaySDKCoreUIDemoUITests;
+			productReference = BA6F8CD12E30F42F00D72B29 /* GamePaySDKCoreUIDemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BA6F8CA92E30F42E00D72B29 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					BA6F8CB02E30F42E00D72B29 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					BA6F8CC62E30F42F00D72B29 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = BA6F8CB02E30F42E00D72B29;
+					};
+					BA6F8CD02E30F42F00D72B29 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = BA6F8CB02E30F42E00D72B29;
+					};
+				};
+			};
+			buildConfigurationList = BA6F8CAC2E30F42E00D72B29 /* Build configuration list for PBXProject "GamePaySDKCoreUIDemo" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BA6F8CA82E30F42E00D72B29;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = BA6F8CB22E30F42E00D72B29 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = BA6F8CFE2E30F47D00D72B29 /* Products */;
+					ProjectRef = BA6F8CF52E30F47D00D72B29 /* GamePaySDKCoreUI.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				BA6F8CB02E30F42E00D72B29 /* GamePaySDKCoreUIDemo */,
+				BA6F8CC62E30F42F00D72B29 /* GamePaySDKCoreUIDemoTests */,
+				BA6F8CD02E30F42F00D72B29 /* GamePaySDKCoreUIDemoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		BA6F8D032E30F47D00D72B29 /* GamePaySDKCoreUI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GamePaySDKCoreUI.framework;
+			remoteRef = BA6F8D022E30F47D00D72B29 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BA6F8CAF2E30F42E00D72B29 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA6F8CC52E30F42F00D72B29 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA6F8CCF2E30F42F00D72B29 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BA6F8CAD2E30F42E00D72B29 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA6F8CC32E30F42F00D72B29 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA6F8CCD2E30F42F00D72B29 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BA6F8CC92E30F42F00D72B29 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BA6F8CB02E30F42E00D72B29 /* GamePaySDKCoreUIDemo */;
+			targetProxy = BA6F8CC82E30F42F00D72B29 /* PBXContainerItemProxy */;
+		};
+		BA6F8CD32E30F42F00D72B29 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BA6F8CB02E30F42E00D72B29 /* GamePaySDKCoreUIDemo */;
+			targetProxy = BA6F8CD22E30F42F00D72B29 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		BA6F8CDB2E30F42F00D72B29 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NJJQ5FQ95W;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GamePaySDKCoreUIDemo/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.terminal3.GamePaySDKCoreUIDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BA6F8CDC2E30F42F00D72B29 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NJJQ5FQ95W;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GamePaySDKCoreUIDemo/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.terminal3.GamePaySDKCoreUIDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BA6F8CDD2E30F42F00D72B29 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BA6F8CDE2E30F42F00D72B29 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BA6F8CE02E30F42F00D72B29 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NJJQ5FQ95W;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.terminal3.GamePaySDKCoreUIDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GamePaySDKCoreUIDemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GamePaySDKCoreUIDemo";
+			};
+			name = Debug;
+		};
+		BA6F8CE12E30F42F00D72B29 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NJJQ5FQ95W;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.terminal3.GamePaySDKCoreUIDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GamePaySDKCoreUIDemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GamePaySDKCoreUIDemo";
+			};
+			name = Release;
+		};
+		BA6F8CE32E30F42F00D72B29 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NJJQ5FQ95W;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.terminal3.GamePaySDKCoreUIDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GamePaySDKCoreUIDemo;
+			};
+			name = Debug;
+		};
+		BA6F8CE42E30F42F00D72B29 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = NJJQ5FQ95W;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.terminal3.GamePaySDKCoreUIDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GamePaySDKCoreUIDemo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BA6F8CAC2E30F42E00D72B29 /* Build configuration list for PBXProject "GamePaySDKCoreUIDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA6F8CDD2E30F42F00D72B29 /* Debug */,
+				BA6F8CDE2E30F42F00D72B29 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA6F8CDA2E30F42F00D72B29 /* Build configuration list for PBXNativeTarget "GamePaySDKCoreUIDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA6F8CDB2E30F42F00D72B29 /* Debug */,
+				BA6F8CDC2E30F42F00D72B29 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA6F8CDF2E30F42F00D72B29 /* Build configuration list for PBXNativeTarget "GamePaySDKCoreUIDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA6F8CE02E30F42F00D72B29 /* Debug */,
+				BA6F8CE12E30F42F00D72B29 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA6F8CE22E30F42F00D72B29 /* Build configuration list for PBXNativeTarget "GamePaySDKCoreUIDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA6F8CE32E30F42F00D72B29 /* Debug */,
+				BA6F8CE42E30F42F00D72B29 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BA6F8CA92E30F42E00D72B29 /* Project object */;
+}
