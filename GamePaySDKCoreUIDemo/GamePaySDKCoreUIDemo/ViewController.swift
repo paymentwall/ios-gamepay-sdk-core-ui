@@ -31,6 +31,18 @@ class ViewController: UIViewController, FormViewValidatable {
     private lazy var panField = PANTextField(theme: theme)
     private lazy var expDateField = ExpDateTextField(theme: theme)
     private lazy var cvvField = CVVTextField(theme: theme)
+    private lazy var dropdownTextField = DropdownTextField(
+        formKey: "form-key",
+        options: [.init(
+            value: "apple",
+            name: "Apple",
+            logoUrl: "https://yt3.googleusercontent.com/F6YRXcBbkvTCIDvHrXqWfnht_stmrhSRvVVtTybO4JyBXFeyAOjMIWM-PlOq_8UTaPSGtXAyMA=s900-c-k-c0x00ffffff-no-rj"
+        ), .init(value: "google", name: "Google", logoUrl: "https://yt3.googleusercontent.com/2eI1TjX447QZFDe6R32K0V2mjbVMKT5mIfQR-wK5bAsxttS_7qzUDS1ojoSKeSP0NuWd6sl7qQ=s900-c-k-c0x00ffffff-no-rj")],
+        title: "Dropdown Textfield",
+        placeholder: "Choose an option",
+        presentingVC: self,
+        theme: theme
+    )
     
     // MARK: - Properties
     private let theme = ThemeStore.defaultTheme
@@ -39,7 +51,7 @@ class ViewController: UIViewController, FormViewValidatable {
         super.viewDidLoad()
         setupTapEndEditing()
         
-        [emailField, panField, expDateField, cvvField].forEach {
+        [emailField, panField, expDateField, cvvField, dropdownTextField].forEach {
             stvContainer.addArrangedSubview($0)
         }
         stvContainer.addArrangedSubview(demoButton)

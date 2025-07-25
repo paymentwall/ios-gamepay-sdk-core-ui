@@ -17,15 +17,14 @@ public class CVVTextField: FormTextField {
             formatter: CVVFormatter(),
             theme: theme
         )
-        setupView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupView() {
+    public override func setupView() {
         textField.keyboardType = .numberPad
-        setIcon(GPAssets.icCVV.image, .Right, withTemplate: false)
+        setIcon(GPAssets.icCVV.image, on: .Right, useTemplate: false)
     }
 }

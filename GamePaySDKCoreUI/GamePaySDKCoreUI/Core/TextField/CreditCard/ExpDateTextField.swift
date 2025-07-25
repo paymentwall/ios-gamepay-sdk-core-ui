@@ -38,7 +38,6 @@ public class ExpDateTextField: FormTextField {
             formatter: ExpDateFormatter(),
             theme: theme
         )
-        setupView()
     }
 
     required init?(coder: NSCoder) {
@@ -49,7 +48,7 @@ public class ExpDateTextField: FormTextField {
         return expDateFormatted
     }
     
-    private func setupView() {
+    public override func setupView() {
         textField.keyboardType = .numberPad
     }
 

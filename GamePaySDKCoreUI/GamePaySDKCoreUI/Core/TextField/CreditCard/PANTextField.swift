@@ -36,7 +36,6 @@ public class PANTextField: FormTextField {
             formatter: PANFormatter(),
             theme: theme
         )
-        setupView()
     }
     
     required init?(coder: NSCoder) {
@@ -56,29 +55,32 @@ public class PANTextField: FormTextField {
         updateCardIcon()
     }
 
-    private func setupView() {
+    public override func setupView() {
         textField.keyboardType = .numberPad
-        setIcon(GPAssets.icCardNumber.image, .Left)
-        setIcon(GPAssets.icScanCard.image, .Right)
+        setIcon(GPAssets.icCardNumber.image, on: .Left)
+        setIcon(GPAssets.icScanCard.image, on: .Right)
     }
     
     private func updateCardIcon() {
         let brand = CardBrandLibrary.detect(from: formattedPAN)
         setIcon(for: brand)
     }
-
-    func setIcon(for cardBrand: CardBrand, _ side: TextFieldSide = .Right) {
+    
+    func setIcon(
+        for cardBrand: CardBrand,
+        on side: TextFieldSide = .Right,
+        animated: Bool = false
+    ) {
         let image = CardBrandLibrary.cardBrandImage(for: cardBrand)
-        guard let containerView = (side == .Left ? textField.leftView : textField.rightView) else {
-            setupImageView(UIImageView(image: image), side)
+        let currentContainer = (side == .Left ? textField.leftView : textField.rightView)
+
+        // Avoid updating if the same image is already set
+        if let existingImageView = currentContainer?.subviews.first as? UIImageView,
+           existingImageView.image?.pngData() == image.pngData() {
             return
         }
 
-        if let imageView = containerView.subviews.first as? UIImageView,
-           imageView.image?.pngData() == image.pngData() {
-            return // avoid redundant update
-        }
-
-        setupImageView(UIImageView(image: image), side)
+        let imageView = UIImageView(image: image)
+        applyIconView(imageView, on: side, animated: animated)
     }
 }

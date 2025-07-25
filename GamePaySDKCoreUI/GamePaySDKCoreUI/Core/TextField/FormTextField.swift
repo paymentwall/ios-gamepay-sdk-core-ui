@@ -15,20 +15,33 @@ enum TextFieldSide {
 public class FormTextField: UIView, FormElementType {
     // MARK: - Properties
     let theme: Theme
+    private let title: String
     let textField = UITextField()
     var text: String { textField.text ?? "" }
     open var validationText: String { text }
-    
-    var inputFormatter: TextFieldFormatter?
-    
-    private let title: String
     var placeholder: String {
         didSet { setPlaceholder() }
     }
+    var inputFormatter: TextFieldFormatter?
+    var onTextChanged: ((String) -> Void)?
+    var onShouldReturn: (() -> Bool)?
+    var validator: Validator?
     
     // MARK: - UI Properties
     private let titleLabel = UILabel()
-    private let errorLabel = UILabel()
+    private lazy var errorLabel: UILabel = {
+        let errorLabel = UILabel()
+        errorLabel.font = errorFont
+        errorLabel.textColor = theme.colors.borderError
+        errorLabel.numberOfLines = 0
+        return errorLabel
+    }()
+    private lazy var errorView: UIView = {
+        let icon = UIImageView(image: GPAssets.icWarning.image)
+        let view = UIStackView(arrangedSubviews: [icon, errorLabel])
+        view.spacing = 4
+        return view
+    }()
     private var titleFont: UIFont {
         theme.typography.label1
     }
@@ -38,10 +51,6 @@ public class FormTextField: UIView, FormElementType {
     var defaultFont: UIFont {
         theme.typography.body1
     }
-    
-    var onTextChanged: ((String) -> Void)?
-    var onShouldReturn: (() -> Bool)?
-    var validator: Validator?
     
     // MARK: - Init
     public init(
@@ -66,10 +75,11 @@ public class FormTextField: UIView, FormElementType {
     private func setup() {
         setupLayout()
         setupEvents()
+        setupView()
     }
     
     private func setupLayout() {
-        let stack = UIStackView(arrangedSubviews: [titleLabel, textField, errorLabel])
+        let stack = UIStackView(arrangedSubviews: [titleLabel, textField, errorView])
         stack.axis = .vertical
         stack.spacing = 4
         addAndPinSubview(stack)
@@ -91,10 +101,7 @@ public class FormTextField: UIView, FormElementType {
         // TODO: Update componentHeight
         textField.heightAnchor.constraint(equalToConstant: 48).isActive = true
         
-        errorLabel.font = errorFont
-        errorLabel.textColor = theme.colors.borderError
-        errorLabel.numberOfLines = 0
-        errorLabel.isHidden = true
+        errorView.isHidden = true
     }
     
     private func setupEvents() {
@@ -103,6 +110,9 @@ public class FormTextField: UIView, FormElementType {
         textField.addTarget(self, action: #selector(editingDidEnd), for: .editingDidEnd)
         textField.delegate = self
     }
+    
+    // Setup view for inheritance
+    open func setupView() { }
     
     private func setPlaceholder() {
         textField.attributedPlaceholder = NSAttributedString(
@@ -118,42 +128,82 @@ public class FormTextField: UIView, FormElementType {
         textField.text = text
     }
     
-    func setIcon(_ image: UIImage?, _ side: TextFieldSide, withTemplate: Bool = true) {
+    func setIcon(
+        _ image: UIImage?,
+        on side: TextFieldSide,
+        useTemplate: Bool = true,
+        animated: Bool = false
+    ) {
         guard let image else { return }
-        let containerView = (side == .Left ? textField.leftView : textField.rightView)
-        if let containerView, let imageView = containerView.subviews.first as? UIImageView, imageView.image?.pngData() == image.pngData() { return }
-        
+
+        // Avoid updating if the same image is already set
+        let currentContainer = side == .Left ? textField.leftView : textField.rightView
+        if let existingImageView = currentContainer?.subviews.first as? UIImageView,
+           existingImageView.image?.pngData() == image.pngData() {
+            return
+        }
+
         let imageView = UIImageView()
-        imageView.image = withTemplate ? image.withRenderingMode(.alwaysTemplate) : image
+        imageView.image = useTemplate ? image.withRenderingMode(.alwaysTemplate) : image
         imageView.tintColor = theme.colors.borderPrimary
-        setupImageView(imageView, side)
+
+        applyIconView(imageView, on: side, animated: animated)
     }
-    
-    func setIcon(_ imageUrl: String, _ side: TextFieldSide) {
+
+    func setIcon(
+        from imageUrl: String,
+        on side: TextFieldSide,
+        animated: Bool = false
+    ) {
         let imageView = UIImageView()
         imageView.loadImage(from: imageUrl)
-        setupImageView(imageView, side)
+
+        applyIconView(imageView, on: side, animated: animated)
+    }
+
+    func applyIconView(
+        _ imageView: UIImageView,
+        on side: TextFieldSide,
+        animated: Bool
+    ) {
+        let container = setupImageView(imageView, side)
+
+        let applyView = {
+            self.textField.setViewBySide(container, side)
+        }
+
+        if animated {
+            UIView.transition(
+                with: textField,
+                duration: 0.25,
+                options: .transitionCrossDissolve,
+                animations: applyView,
+                completion: nil
+            )
+        } else {
+            applyView()
+        }
     }
     
-    func setupImageView(_ imageView: UIImageView, _ side: TextFieldSide) {
+    @discardableResult
+    private func setupImageView(_ imageView: UIImageView, _ side: TextFieldSide) -> UIView {
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.widthAnchor.constraint(equalToConstant: 24).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        
+
         let container = UIView()
         container.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(imageView)
-        
+
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: container.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
             container.widthAnchor.constraint(equalToConstant: 40),
-            // TODO: Update componentHeight
             container.heightAnchor.constraint(equalToConstant: 48)
         ])
-        
-        textField.setViewBySide(container, side)
+
+        return container
     }
     
     @objc func textDidChange() {
@@ -204,19 +254,19 @@ extension FormTextField {
         // TODO: Update selectedBorderWidth
         applyBorder(width: 3, color: theme.colors.borderError)
         errorLabel.text = message
-        errorLabel.isHidden = false
+        errorView.isHidden = false
         invalidateIntrinsicContentSize()
     }
     
     public func hideError() {
         // TODO: Update borderWidth
         applyBorder(width: 1)
-        errorLabel.isHidden = true
+        errorView.isHidden = true
         invalidateIntrinsicContentSize()
     }
     
     private func clearErrorIfNeeded() {
-        if !errorLabel.isHidden {
+        if !errorView.isHidden {
             hideError()
         }
     }
