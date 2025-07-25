@@ -122,12 +122,12 @@ class DropdownSheetViewController: UIViewController {
     
     private func setupView() {
         for option in options {
-//            if let option = option as? DropdownPhoneOption {
-//                let phoneOption = DropdownPhoneOptionView()
-//                phoneOption.configure(with: option, delegate: self)
-//                contentContainerView.addArrangedSubview(phoneOption)
-//                continue
-//            }
+            if let option = option as? DropdownPhoneOption {
+                let phoneOption = PhoneOptionView(theme: theme)
+                phoneOption.configure(with: option, delegate: self)
+                contentContainerView.addArrangedSubview(phoneOption)
+                continue
+            }
             
             let optionView = DropdownIconTextView(theme: theme)
             let isSelected = option.value == selectedOption?.value

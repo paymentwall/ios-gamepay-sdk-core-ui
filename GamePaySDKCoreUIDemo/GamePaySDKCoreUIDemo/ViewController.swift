@@ -43,6 +43,14 @@ class ViewController: UIViewController, FormViewValidatable {
         presentingVC: self,
         theme: theme
     )
+    private lazy var phoneTextField = PhoneTextField(
+        formKey: "phone_form_key",
+        defaultCountry: "VN",
+        title: "Phone number",
+        placeholder: "Enter phone number",
+        presentingVC: self,
+        theme: theme
+    )
     
     // MARK: - Properties
     private let theme = ThemeStore.defaultTheme
@@ -51,7 +59,7 @@ class ViewController: UIViewController, FormViewValidatable {
         super.viewDidLoad()
         setupTapEndEditing()
         
-        [emailField, panField, expDateField, cvvField, dropdownTextField].forEach {
+        [emailField, panField, expDateField, cvvField, dropdownTextField, phoneTextField].forEach {
             stvContainer.addArrangedSubview($0)
         }
         stvContainer.addArrangedSubview(demoButton)

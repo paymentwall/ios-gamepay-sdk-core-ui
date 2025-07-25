@@ -15,6 +15,7 @@ enum TextFieldSide {
 public class FormTextField: UIView, FormElementType {
     // MARK: - Properties
     let theme: Theme
+    let height: CGFloat = 48
     private let title: String
     let textField = UITextField()
     var text: String { textField.text ?? "" }
@@ -99,7 +100,7 @@ public class FormTextField: UIView, FormElementType {
         // TODO: Update defaultPadding
         textField.setPaddingPoints(16, side: .Both)
         // TODO: Update componentHeight
-        textField.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        textField.heightAnchor.constraint(equalToConstant: height).isActive = true
         
         errorView.isHidden = true
     }
@@ -200,7 +201,7 @@ public class FormTextField: UIView, FormElementType {
             imageView.centerXAnchor.constraint(equalTo: container.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
             container.widthAnchor.constraint(equalToConstant: 40),
-            container.heightAnchor.constraint(equalToConstant: 48)
+            container.heightAnchor.constraint(equalToConstant: height)
         ])
 
         return container

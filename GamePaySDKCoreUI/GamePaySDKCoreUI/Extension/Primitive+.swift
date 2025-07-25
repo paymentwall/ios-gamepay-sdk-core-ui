@@ -66,35 +66,3 @@ extension Date {
         return calendar.component(component, from: self)
     }
 }
-
-extension URL {
-    public var queryParameters: [String: String]? {
-        guard
-            let components = URLComponents(url: self, resolvingAgainstBaseURL: true),
-            let queryItems = components.queryItems
-        else {
-            return nil
-        }
-        
-        var parameters = [String: String]()
-        for item in queryItems {
-            parameters[item.name] = item.value
-        }
-        
-        return parameters
-    }
-}
-
-extension Dictionary {
-   /// Merges the dictionary with dictionaries passed. The latter dictionaries will override
-   /// values of the keys that are already set
-   ///
-   /// - parameter dictionaries: A comma seperated list of dictionaries
-    mutating func merge(_ dictionaries: Dictionary<Key, Value>...) {
-        for dict in dictionaries {
-            for (key, value) in dict {
-                self[key] = value
-            }
-        }
-    }
-}
