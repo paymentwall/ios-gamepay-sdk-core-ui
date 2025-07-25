@@ -8,9 +8,9 @@
 import UIKit
 
 public class DemoButton: UIButton {
-    var theme: Theme!
+    var theme: GPTheme!
     
-    public init(theme: Theme) {
+    public init(theme: GPTheme) {
         self.theme = theme
         super.init(frame: .zero)
         applyTheme()

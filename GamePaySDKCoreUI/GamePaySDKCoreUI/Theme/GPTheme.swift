@@ -1,6 +1,6 @@
 import UIKit
 
-public struct Theme {
+public struct GPTheme {
     public var colors: Colors
     public var typography: Typography
     public var appearance: Appearance
@@ -13,7 +13,7 @@ public struct Theme {
 }
 
 // MARK: - Colors
-public extension Theme {
+public extension GPTheme {
     struct Colors {
         public var colorAccent: UIColor
         public var icColorInfo: UIColor
@@ -110,7 +110,7 @@ public extension Theme {
 }
 
 // MARK: - Typography
-public extension Theme {
+public extension GPTheme {
     struct Typography {
         public var heading1: UIFont
         public var heading2: UIFont
@@ -162,18 +162,29 @@ public extension Theme {
 }
 
 // MARK: - Spacing
-public extension Theme {
+public extension GPTheme {
     struct Appearance {
         public var formInsets: UIEdgeInsets
         public var sectionSpacing: CGFloat
         public var rowSpacing: CGFloat
         public var cornerRadius: CGFloat
+        public var padding: CGFloat
+        public var borderWidth: CGFloat
         
-        public init(formInsets: UIEdgeInsets, sectionSpacing: CGFloat, rowSpacing: CGFloat, cornerRadius: CGFloat) {
+        public init(
+            formInsets: UIEdgeInsets,
+            sectionSpacing: CGFloat,
+            rowSpacing: CGFloat,
+            cornerRadius: CGFloat,
+            padding: CGFloat,
+            borderWidth: CGFloat
+        ) {
             self.formInsets = formInsets
             self.sectionSpacing = sectionSpacing
             self.rowSpacing = rowSpacing
             self.cornerRadius = cornerRadius
+            self.padding = padding
+            self.borderWidth = borderWidth
         }
     }
 } 

@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     }()
     
     // MARK: - Properties
-    private let theme = ThemeStore.defaultTheme
+    private let theme = GPThemeStore.defaultTheme
     
     override func viewDidLoad() {
         super.viewDidLoad()

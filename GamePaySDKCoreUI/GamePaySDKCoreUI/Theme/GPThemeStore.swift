@@ -1,5 +1,5 @@
 //
-//  ThemeStore.swift
+//  GPThemeStore.swift
 //  GamePaySDKCoreUIDemo
 //
 //  Created by henry on 7/24/25.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-public enum ThemeStore {
-    public static let defaultTheme = Theme(
+public enum GPThemeStore {
+    public static let defaultTheme = GPTheme(
         colors: .init(
             colorAccent: UIColor(hex: "#1253E0"),
             icColorInfo: UIColor(hex: "#098DE5"),
