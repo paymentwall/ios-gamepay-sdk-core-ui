@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dBv-An-x7D">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -9,6 +9,22 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="k0K-Bv-t3w">
+            <objects>
+                <navigationController id="dBv-An-x7D" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="OUD-Fp-pyE">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="AX1-h0-EIT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fO7-l6-mIv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1824" y="21"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -17,8 +33,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="0wk-OU-ofW">
-                                <rect key="frame" x="16" y="401" width="361" height="50"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="0wk-OU-ofW">
+                                <rect key="frame" x="16" y="375.66666666666669" width="361" height="100.66666666666669"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHB-W9-WpR">
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="38.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="TextField demo"/>
+                                        <connections>
+                                            <segue destination="33N-BC-tHA" kind="show" id="oJP-6m-3Q9"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hwz-Ah-PeN">
+                                        <rect key="frame" x="0.0" y="62.333333333333314" width="361" height="38.333333333333343"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button demo"/>
+                                        <connections>
+                                            <segue destination="KfQ-ru-Fah" kind="show" id="z6o-MM-2JK"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="1" constant="50" id="EUc-M1-eNX"/>
                                 </constraints>
@@ -33,13 +67,62 @@
                             <constraint firstItem="0wk-OU-ofW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="tKo-dj-mD6"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="75v-r9-NZz"/>
                     <connections>
                         <outlet property="stvContainer" destination="0wk-OU-ofW" id="6I1-RB-7dx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="126" y="5"/>
+            <point key="canvasLocation" x="-647" y="20"/>
+        </scene>
+        <!--Text Field Demo View Controller-->
+        <scene sceneID="VcU-Mn-H0u">
+            <objects>
+                <viewController id="33N-BC-tHA" customClass="TextFieldDemoViewController" customModule="GamePaySDKCoreUIDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="as5-zJ-Fqf">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3pD-fp-FT7">
+                                <rect key="frame" x="16" y="401" width="361" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="1" constant="50" id="dcD-UP-ORH"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="cie-yO-a4B"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="3pD-fp-FT7" firstAttribute="centerY" secondItem="as5-zJ-Fqf" secondAttribute="centerY" id="ICm-kX-tcQ"/>
+                            <constraint firstItem="cie-yO-a4B" firstAttribute="trailing" secondItem="3pD-fp-FT7" secondAttribute="trailing" constant="16" id="lHq-fU-zec"/>
+                            <constraint firstItem="3pD-fp-FT7" firstAttribute="leading" secondItem="cie-yO-a4B" secondAttribute="leading" constant="16" id="moR-ww-JTu"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="hVd-ZC-Hr0"/>
+                    <connections>
+                        <outlet property="stvContainer" destination="3pD-fp-FT7" id="abJ-F9-2HW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yVQ-K5-mO9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="637" y="-185"/>
+        </scene>
+        <!--Button Demo View Controller-->
+        <scene sceneID="vjK-MJ-jj2">
+            <objects>
+                <viewController id="KfQ-ru-Fah" customClass="ButtonDemoViewController" customModule="GamePaySDKCoreUIDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="k1s-bN-6lV">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="M93-vq-RTy"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="5MD-1o-u3d"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k4A-eh-zXv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="619" y="533"/>
         </scene>
     </scenes>
     <resources>

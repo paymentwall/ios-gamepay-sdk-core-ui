@@ -60,7 +60,9 @@ public enum GPThemeStore {
             formInsets: .init(top: 16, left: 16, bottom: 16, right: 16),
             sectionSpacing: 24,
             rowSpacing: 16,
-            cornerRadius: 8
+            cornerRadius: 8,
+            padding: 16,
+            borderWidth: 1
         )
     )
 }

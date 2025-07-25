@@ -12,21 +12,9 @@ class ViewController: UIViewController {
     
     // MARK: - UI Elements
     @IBOutlet weak var stvContainer: UIStackView!
-    lazy var demoButton: UIButton = {
-        let btn = GPPrimaryButton(theme: theme)
-        btn.setTitle("Demo button", for: .normal)
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        return btn
-    }()
-    
-    // MARK: - Properties
-    private let theme = GPThemeStore.defaultTheme
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        stvContainer.addArrangedSubview(demoButton)
     }
-
+    
 }
-
