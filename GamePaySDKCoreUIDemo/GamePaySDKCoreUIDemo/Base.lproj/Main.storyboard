@@ -84,8 +84,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3pD-fp-FT7">
-                                <rect key="frame" x="16" y="401" width="361" height="50"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="3pD-fp-FT7">
+                                <rect key="frame" x="16" y="103" width="361" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="1" constant="50" id="dcD-UP-ORH"/>
                                 </constraints>
@@ -94,9 +94,9 @@
                         <viewLayoutGuide key="safeArea" id="cie-yO-a4B"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="3pD-fp-FT7" firstAttribute="centerY" secondItem="as5-zJ-Fqf" secondAttribute="centerY" id="ICm-kX-tcQ"/>
-                            <constraint firstItem="cie-yO-a4B" firstAttribute="trailing" secondItem="3pD-fp-FT7" secondAttribute="trailing" constant="16" id="lHq-fU-zec"/>
-                            <constraint firstItem="3pD-fp-FT7" firstAttribute="leading" secondItem="cie-yO-a4B" secondAttribute="leading" constant="16" id="moR-ww-JTu"/>
+                            <constraint firstItem="3pD-fp-FT7" firstAttribute="trailing" secondItem="cie-yO-a4B" secondAttribute="trailing" constant="-16" id="LC4-Jv-ivO"/>
+                            <constraint firstItem="3pD-fp-FT7" firstAttribute="leading" secondItem="cie-yO-a4B" secondAttribute="leading" constant="16" id="Z0X-2H-YBJ"/>
+                            <constraint firstItem="3pD-fp-FT7" firstAttribute="top" secondItem="cie-yO-a4B" secondAttribute="top" id="zLl-nr-bG7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hVd-ZC-Hr0"/>

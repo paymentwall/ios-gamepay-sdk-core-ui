@@ -1,5 +1,5 @@
 //
-//  DropdownOptionView.swift
+//  DropdownOptionCell.swift
 //  GamePaySDKCoreUI
 //
 //  Created by Luke Nguyen on 25/7/25.
@@ -7,28 +7,20 @@
 
 import UIKit
 
-protocol DropdownOptionViewDelegate: AnyObject {
-    func didSelectOption(_ option: DropdownOption)
-}
-
-class DropdownOptionView: UIView {
-    var option: DropdownOption?
-    weak var delegate: DropdownOptionViewDelegate?
-    let theme: GPTheme
+class DropdownOptionCell: UITableViewCell {
     let mainStackView = UIStackView()
 
-    init(theme: GPTheme) {
-        self.theme = theme
-        super.init(frame: .zero)
-        setupMainStackView()
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configureCell()
         setupView()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    private func setupMainStackView() {
+    
+    private func configureCell() {
         mainStackView.axis = .horizontal
         mainStackView.spacing = 12
         mainStackView.alignment = .center
@@ -46,7 +38,7 @@ class DropdownOptionView: UIView {
         // Divider view
         let divider = UIView()
         divider.translatesAutoresizingMaskIntoConstraints = false
-        divider.backgroundColor = theme.colors.borderSubtle
+//        divider.backgroundColor = theme.colors.borderSubtle
         
         addSubview(divider)
         NSLayoutConstraint.activate([
@@ -55,21 +47,13 @@ class DropdownOptionView: UIView {
             divider.bottomAnchor.constraint(equalTo: bottomAnchor),
             divider.heightAnchor.constraint(equalToConstant: 1)
         ])
-        
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        addGestureRecognizer(gesture)
     }
     
-    // Custom setup 
+    // Custom setup
     open func setupView() { }
 
     func configureSubviews(_ subviews: [UIView]) {
         mainStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         subviews.forEach { mainStackView.addArrangedSubview($0) }
-    }
-    
-    @objc func handleTap() {
-        guard let option else { return }
-        delegate?.didSelectOption(option)
     }
 }

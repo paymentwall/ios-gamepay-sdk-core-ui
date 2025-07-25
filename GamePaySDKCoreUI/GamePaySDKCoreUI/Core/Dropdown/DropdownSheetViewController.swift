@@ -14,22 +14,9 @@ class DropdownSheetViewController: UIViewController {
     let selectedOption: DropdownOption?
     var onSelect: ((DropdownOption) -> Void)?
     
-    lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.automaticallyAdjustsScrollIndicatorInsets = false
-        #if !os(visionOS)
-        scrollView.keyboardDismissMode = .onDrag
-        #endif
-        return scrollView
-    }()
+    private let tableView = UITableView()
     private let navBar = UIView()
     private let closeButton = UIButton(type: .system)
-    private var contentContainerView: UIStackView = {
-        let stv = UIStackView()
-        stv.axis = .vertical
-        stv.translatesAutoresizingMaskIntoConstraints = false
-        return stv
-    }()
     
     init(
         options: [DropdownOption],
@@ -52,13 +39,10 @@ class DropdownSheetViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = theme.colors.bgDefaultLight
         setupUI()
-        setupView()
+        setupTableView()
     }
     
     // MARK: - Setup UI
-    private var scrollViewHeightConstraint: NSLayoutConstraint?
-    private var bottomAnchor: NSLayoutConstraint?
-    
     private func setupUI() {
         let titleLabel = UILabel()
         titleLabel.text = navBarTitle
@@ -69,88 +53,61 @@ class DropdownSheetViewController: UIViewController {
         let barStack = UIStackView(arrangedSubviews: [titleLabel, UIView(), closeButton])
         barStack.axis = .horizontal
         barStack.alignment = .center
-        barStack.spacing = 16
+        barStack.spacing = theme.appearance.rowSpacing
         barStack.translatesAutoresizingMaskIntoConstraints = false
         
         navBar.backgroundColor = theme.colors.bgDefaultLight
+        navBar.translatesAutoresizingMaskIntoConstraints = false
         navBar.addSubview(barStack)
-        
-        [navBar, scrollView].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview($0)
-        }
-        
-        scrollView.contentInsetAdjustmentBehavior = .never
-        let bottomAnchor = scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        bottomAnchor.priority = .defaultLow
-        self.bottomAnchor = bottomAnchor
+        view.addSubview(navBar)
         
         NSLayoutConstraint.activate([
-            // TODO: Update defaultPadding
-            barStack.leadingAnchor.constraint(equalTo: navBar.leadingAnchor, constant: 16),
-            barStack.trailingAnchor.constraint(equalTo: navBar.trailingAnchor, constant: -16),
+            barStack.leadingAnchor.constraint(equalTo: navBar.leadingAnchor, constant: theme.appearance.padding),
+            barStack.trailingAnchor.constraint(equalTo: navBar.trailingAnchor, constant: -theme.appearance.padding),
             barStack.centerYAnchor.constraint(equalTo: navBar.centerYAnchor),
-            navBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 8),
+            navBar.topAnchor.constraint(equalTo: view.topAnchor, constant: theme.appearance.padding),
             navBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             navBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             navBar.heightAnchor.constraint(equalToConstant: 48),
-            
-            scrollView.topAnchor.constraint(equalTo: navBar.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bottomAnchor,
-        ])
-        
-        contentContainerView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(contentContainerView)
-        
-        // Give the scroll view a desired height
-        let scrollViewHeightConstraint = scrollView.heightAnchor.constraint(
-            equalTo: scrollView.contentLayoutGuide.heightAnchor)
-        scrollViewHeightConstraint.priority = .fittingSizeLevel
-        self.scrollViewHeightConstraint = scrollViewHeightConstraint
-        
-        NSLayoutConstraint.activate([
-            contentContainerView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
-            contentContainerView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
-            contentContainerView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            contentContainerView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
-            contentContainerView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
-            scrollViewHeightConstraint,
         ])
     }
     
-    private func setupView() {
-        for option in options {
-            if let option = option as? DropdownPhoneOption {
-                let phoneOption = PhoneOptionView(theme: theme)
-                phoneOption.configure(with: option, delegate: self)
-                contentContainerView.addArrangedSubview(phoneOption)
-                continue
-            }
-            
-            let optionView = DropdownIconTextView(theme: theme)
-            let isSelected = option.value == selectedOption?.value
-            optionView.configure(with: option, delegate: self, isSelected: isSelected)
-            contentContainerView.addArrangedSubview(optionView)
-        }
+    private func setupTableView() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(DropdownIconTextCell.self, forCellReuseIdentifier: "DropdownIconTextCell")
+        tableView.register(DropdownPhoneOptionCell.self, forCellReuseIdentifier: "DropdownPhoneOptionCell")
+
+        view.addSubview(tableView)
+        
+        let estimatedCellHeight: CGFloat = 64
+        let navBarHeight: CGFloat = 48
+        let totalSpacing: CGFloat = theme.appearance.padding + view.safeAreaInsets.bottom
+        
+        let estimatedTableViewHeight = CGFloat(options.count) * estimatedCellHeight
+        let safeAreaHeight = view.safeAreaLayoutGuide.layoutFrame.height
+
+        // Calculate max allowable table height based on safe area
+        let maxAllowedTableViewHeight = safeAreaHeight - navBarHeight - totalSpacing
+
+        // Use the smaller value between estimated height and max allowed
+        let finalTableViewHeight = min(estimatedTableViewHeight, maxAllowedTableViewHeight)
+
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: navBar.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.heightAnchor.constraint(equalToConstant: finalTableViewHeight)
+        ])
         
         // Scroll to selected cell
         if let selectedOption = selectedOption,
-           let index = options.firstIndex(where: { $0.value == selectedOption.value }),
-           index < contentContainerView.arrangedSubviews.count {
-
-            let targetView = contentContainerView.arrangedSubviews[index]
-
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-                let targetFrameInScrollView = scrollView.convert(targetView.frame, from: contentContainerView)
-                let scrollViewHeight = scrollView.bounds.height
-                let centeredOffsetY = targetFrameInScrollView.midY - scrollViewHeight / 2
-                let maxOffsetY = scrollView.contentSize.height - scrollViewHeight
-                let adjustedOffsetY = max(0, min(centeredOffsetY, maxOffsetY))
-                
-                scrollView.setContentOffset(CGPoint(x: 0, y: adjustedOffsetY), animated: false)
+           let index = options.firstIndex(where: { $0.value == selectedOption.value }) {
+            let indexPath = IndexPath(row: index, section: 0)
+            DispatchQueue.main.async {
+                self.tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
             }
         }
     }
@@ -160,9 +117,28 @@ class DropdownSheetViewController: UIViewController {
     }
 }
 
-extension DropdownSheetViewController: DropdownOptionViewDelegate {
-    func didSelectOption(_ option: DropdownOption) {
-        onSelect?(option)
+extension DropdownSheetViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return options.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let option = options[indexPath.row]
+        
+        if let option = option as? DropdownPhoneOption {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DropdownPhoneOptionCell", for: indexPath) as! DropdownPhoneOptionCell
+            cell.configure(with: option, theme: theme)
+            return cell
+        }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DropdownIconTextCell", for: indexPath) as! DropdownIconTextCell
+        let isSelectedCell = option.value == selectedOption?.value
+        cell.configure(with: option, theme: theme, isSelected: isSelectedCell)
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        onSelect?(options[indexPath.row])
         dismissSheet()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  DropdownIconTextView.swift
+//  DropdownIconTextCell.swift
 //  GamePaySDKCoreUI
 //
 //  Created by Luke Nguyen on 25/7/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DropdownIconTextView: DropdownOptionView {
+class DropdownIconTextCell: DropdownOptionCell {
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
     private let selectedIconView = UIImageView()
@@ -16,8 +16,6 @@ class DropdownIconTextView: DropdownOptionView {
         iconView.translatesAutoresizingMaskIntoConstraints = false
         iconView.contentMode = .scaleAspectFit
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.numberOfLines = 1
-        titleLabel.font = theme.typography.body1
         selectedIconView.translatesAutoresizingMaskIntoConstraints = false
         selectedIconView.image = GPAssets.icCheckmark.image
         
@@ -31,9 +29,7 @@ class DropdownIconTextView: DropdownOptionView {
         configureSubviews([iconView, titleLabel, selectedIconView])
     }
 
-    func configure(with option: DropdownOption, delegate: DropdownOptionViewDelegate, isSelected: Bool) {
-        self.option = option
-        self.delegate = delegate
+    func configure(with option: DropdownOption, theme: GPTheme, isSelected: Bool) {
         titleLabel.text = option.name
         titleLabel.font = theme.typography.body1
         iconView.image = nil

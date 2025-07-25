@@ -17,7 +17,6 @@ public class FormTextField: UIView, FormElementType {
     let theme: GPTheme
     let height: CGFloat = 48
     private let title: String
-    let textField = UITextField()
     var text: String { textField.text ?? "" }
     open var validationText: String { text }
     var placeholder: String {
@@ -29,6 +28,8 @@ public class FormTextField: UIView, FormElementType {
     var validator: Validator?
     
     // MARK: - UI Properties
+    var textFieldStackView = UIStackView()
+    let textField = UITextField()
     private let titleLabel = UILabel()
     private lazy var errorLabel: UILabel = {
         let errorLabel = UILabel()
@@ -80,7 +81,10 @@ public class FormTextField: UIView, FormElementType {
     }
     
     private func setupLayout() {
-        let stack = UIStackView(arrangedSubviews: [titleLabel, textField, errorView])
+        textFieldStackView.addArrangedSubview(textField)
+        textFieldStackView.spacing = 8
+        
+        let stack = UIStackView(arrangedSubviews: [titleLabel, textFieldStackView, errorView])
         stack.axis = .vertical
         stack.spacing = 4
         addAndPinSubview(stack)
@@ -100,7 +104,7 @@ public class FormTextField: UIView, FormElementType {
         // TODO: Update defaultPadding
         textField.setPaddingPoints(16, side: .Both)
         // TODO: Update componentHeight
-        textField.heightAnchor.constraint(equalToConstant: height).isActive = true
+        textFieldStackView.heightAnchor.constraint(equalToConstant: height).isActive = true
         
         errorView.isHidden = true
     }
@@ -253,7 +257,7 @@ extension FormTextField: UITextFieldDelegate {
 extension FormTextField {
     public func showError(message: String?) {
         // TODO: Update selectedBorderWidth
-        applyBorder(width: 3, color: theme.colors.borderError)
+        applyBorder(width: 2, color: theme.colors.borderError)
         errorLabel.text = message
         errorView.isHidden = false
         invalidateIntrinsicContentSize()

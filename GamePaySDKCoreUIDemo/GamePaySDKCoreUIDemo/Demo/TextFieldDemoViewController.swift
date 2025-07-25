@@ -16,11 +16,11 @@ class TextFieldDemoViewController: UIViewController, FormViewValidatable {
     
     // MARK: - UI Elements
     @IBOutlet weak var stvContainer: UIStackView!
-    lazy var demoButton: UIView = {
-        let btn = GPPrimaryButton(theme: theme)
-//        btn.setTitle("Demo button", for: .normal)
+    lazy var demoButton: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setTitle("Validate", for: .normal)
         btn.translatesAutoresizingMaskIntoConstraints = false
-//        btn.addTarget(self, action: #selector(validateAndSubmit), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(validateAndSubmit), for: .touchUpInside)
         return btn
     }()
     
@@ -39,7 +39,7 @@ class TextFieldDemoViewController: UIViewController, FormViewValidatable {
             name: "Apple",
             logoUrl: "https://yt3.googleusercontent.com/F6YRXcBbkvTCIDvHrXqWfnht_stmrhSRvVVtTybO4JyBXFeyAOjMIWM-PlOq_8UTaPSGtXAyMA=s900-c-k-c0x00ffffff-no-rj"
         ), .init(value: "google", name: "Google", logoUrl: "https://yt3.googleusercontent.com/2eI1TjX447QZFDe6R32K0V2mjbVMKT5mIfQR-wK5bAsxttS_7qzUDS1ojoSKeSP0NuWd6sl7qQ=s900-c-k-c0x00ffffff-no-rj")],
-        title: "Dropdown Textfield",
+        title: "Dropdown",
         placeholder: "Choose an option",
         presentingVC: self,
         theme: theme
@@ -60,7 +60,7 @@ class TextFieldDemoViewController: UIViewController, FormViewValidatable {
         super.viewDidLoad()
         setupTapEndEditing()
         
-        [emailField, panField, expDateField, cvvField, dropdownTextField, phoneTextField].forEach {
+        [phoneTextField, emailField, panField, expDateField, cvvField, dropdownTextField].forEach {
             stvContainer.addArrangedSubview($0)
         }
         stvContainer.addArrangedSubview(demoButton)
@@ -88,6 +88,9 @@ class TextFieldDemoViewController: UIViewController, FormViewValidatable {
             RequiredRule(message: AppMessage.Validation.CVVEmpty),
             CVVRule()
         ])
+        
+        validator.registerField(dropdownTextField, rules: [RequiredRule()])
+        validator.registerField(phoneTextField, rules: [RequiredRule()])
     }
 
     @objc

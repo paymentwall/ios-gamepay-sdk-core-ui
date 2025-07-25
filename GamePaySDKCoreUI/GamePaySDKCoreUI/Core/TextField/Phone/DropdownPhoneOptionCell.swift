@@ -1,14 +1,13 @@
 //
-//  PhoneOptionView.swift
+//  DropdownPhoneOptionCell.swift
 //  GamePaySDKCoreUI
 //
 //  Created by Luke Nguyen on 25/7/25.
 //
 
-
 import UIKit
 
-class PhoneOptionView: DropdownOptionView {
+class DropdownPhoneOptionCell: DropdownOptionCell {
     private let flagLabel = UILabel()
     private let codeLabel = UILabel()
     private let titleLabel = UILabel()
@@ -19,13 +18,16 @@ class PhoneOptionView: DropdownOptionView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    func configure(with option: DropdownPhoneOption, delegate: DropdownOptionViewDelegate?) {
-        self.option = option
-        self.delegate = delegate
+    func configure(with option: DropdownPhoneOption, theme: GPTheme) {
         flagLabel.text = option.flag
         codeLabel.text = option.phoneCode.map { "+\($0)" }
+        codeLabel.font = theme.typography.body1
+        codeLabel.textColor = theme.colors.textSecondary
         titleLabel.text = option.name
-        configureSubviews([flagLabel, codeLabel, titleLabel])
+        titleLabel.font = theme.typography.body1
+        flagLabel.setContentHuggingPriority(.required, for: .horizontal)
+        codeLabel.setContentHuggingPriority(.required, for: .horizontal)
+        configureSubviews([flagLabel, titleLabel, codeLabel])
     }
 }
 

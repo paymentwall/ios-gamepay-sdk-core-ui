@@ -15,9 +15,10 @@ public class PhoneTextField: PayAltoFormTextField {
     
     weak var presentingViewController: UIViewController?
     
+    private var phoneCodeStackView = UIStackView()
     private let flagLabel = UILabel()
     private let codeLabel = UILabel()
-    private let tapView = UIView()
+    private let icon = UIImageView(image: GPAssets.icDropdown.image)
     
     private var selectedOption: DropdownOption?
     
@@ -56,51 +57,39 @@ public class PhoneTextField: PayAltoFormTextField {
     public override func setupView() {
         textField.keyboardType = .phonePad
         
-        setupLabels()
-        setupTapView()
-        
+        phoneCodeStackView = UIStackView(arrangedSubviews: [flagLabel, codeLabel, icon])
+        icon.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        icon.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        phoneCodeStackView.alignment = .center
+        phoneCodeStackView.layer.borderColor = theme.colors.borderPrimary.cgColor
+        phoneCodeStackView.layer.borderWidth = theme.appearance.borderWidth
+        phoneCodeStackView.layer.cornerRadius = theme.appearance.cornerRadius
+        phoneCodeStackView.isLayoutMarginsRelativeArrangement = true
+        phoneCodeStackView.layoutMargins = UIEdgeInsets(
+            top: 0,
+            left: theme.appearance.padding,
+            bottom: 0,
+            right: theme.appearance.padding
+        )
+
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapCountrySelector))
-        tapView.addGestureRecognizer(tap)
+        phoneCodeStackView.addGestureRecognizer(tap)
+        flagLabel.font = defaultFont
+        codeLabel.font = defaultFont
+        codeLabel.textColor = theme.colors.textPrimary
+        flagLabel.setContentHuggingPriority(.required, for: .horizontal)
+        codeLabel.setContentHuggingPriority(.required, for: .horizontal)
+        codeLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         
-        textField.leftView = tapView
-        textField.leftViewMode = .always
+        textFieldStackView.removeAllSubviews()
+        [phoneCodeStackView, textField].forEach {
+            textFieldStackView.addArrangedSubview($0)
+        }
         
         updateCountryUI(to: selectedRegion)
     }
     
-    private func setupLabels() {
-        flagLabel.font = defaultFont
-        codeLabel.font = defaultFont
-        codeLabel.textColor = theme.colors.textPrimary
-        
-        flagLabel.setContentHuggingPriority(.required, for: .horizontal)
-        codeLabel.setContentHuggingPriority(.required, for: .horizontal)
-        codeLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-    }
-    
-    private func setupTapView() {
-        let stack = UIStackView(arrangedSubviews: [flagLabel, codeLabel])
-        stack.axis = .horizontal
-        stack.spacing = 2
-        stack.alignment = .center
-        
-        tapView.addSubview(stack)
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            stack.centerYAnchor.constraint(equalTo: tapView.centerYAnchor),
-            // TODO: Update padding
-            stack.leadingAnchor.constraint(equalTo: tapView.leadingAnchor, constant: 16 / 2),
-            stack.trailingAnchor.constraint(equalTo: tapView.trailingAnchor, constant: -16 / 2),
-            stack.topAnchor.constraint(equalTo: tapView.topAnchor),
-            stack.bottomAnchor.constraint(equalTo: tapView.bottomAnchor),
-            stack.widthAnchor.constraint(lessThanOrEqualToConstant: 70),
-            tapView.heightAnchor.constraint(equalToConstant: height),
-        ])
-    }
-    
     // MARK: - Actions
-    
     override func textDidChange() {
         guard let raw = textField.text else { return }
         
@@ -132,20 +121,20 @@ public class PhoneTextField: PayAltoFormTextField {
     }
     
     // MARK: - Helpers
-    
     private func updateCountryUI(to regionCode: String) {
         selectedRegion = regionCode
         formatter = PartialFormatter(phoneNumberKit: phoneNumberKit, defaultRegion: regionCode)
-        
+
         if let example = phoneNumberKit.getFormattedExampleNumber(forCountry: regionCode, withPrefix: false) {
             placeholder = example
         }
-        
-        flagLabel.text = regionCode.getFlagScalar()
-        
         if let code = phoneNumberKit.countryCode(for: regionCode) {
             codeLabel.text = "+\(code)"
         }
+        
+        UIView.transition(with: textField, duration: 0.25, options: .transitionCrossDissolve, animations: {
+            self.flagLabel.text = regionCode.getFlagScalar()
+        }, completion: nil)
     }
     
     private func unformat(_ text: String?) -> String {
