@@ -20,9 +20,9 @@ public enum GPThemeStore {
             bgPressPrimary: UIColor(hex: "#B5CAF5"),
             bgInactive: UIColor(hex: "#D6E4FF"),
             bgInfo: UIColor(hex: "#E0F3FF"),
-            bgWarning: UIColor(hex: "#FFFFE5"),
+            bgWarning: UIColor(hex: "#FFF4E0"),
             bgSuccess: UIColor(hex: "#DAF7E9"),
-            bgError: UIColor(hex: "#FFF5E5"),
+            bgError: UIColor(hex: "#FFE5E5"),
             bgPressSecondary: UIColor(hex: "#000000"),
             bgPaymentDark: UIColor(hex: "#000000"),
             borderPayment: UIColor(hex: "#D6E4FF"),
@@ -36,8 +36,8 @@ public enum GPThemeStore {
             textSecondary: UIColor(hex: "#3E527A"),
             textButtonLight: UIColor(hex: "#FFFFFF"),
             textButtonDark: UIColor(hex: "#060B14"),
-            textButtonInactivePrimary: UIColor(hex: "#D6E4FF"),
-            textButtonInactiveSecondary: UIColor(hex: "#3E527A"),
+            textButtonInactivePrimary: UIColor(hex: "##3E527A"),
+            textButtonInactiveSecondary: UIColor(hex: "#99B5E0"),
             textError: UIColor(hex: "#FF3A3A")
         ),
         typography: .init(
@@ -51,13 +51,13 @@ public enum GPThemeStore {
             button1: .systemFont(ofSize: 18, weight: .semibold), // 590
             button2: .systemFont(ofSize: 14, weight: .medium), // 510
             body1: .systemFont(ofSize: 16, weight: .regular), // 400
-            bodyMedium1: .systemFont(ofSize: 16, weight: .bold), // 700
+            bodyMedium1: .systemFont(ofSize: 16, weight: .medium), // 500
             body2: .systemFont(ofSize: 20, weight: .regular), // 400
-            bodyMedium2: .systemFont(ofSize: 20, weight: .bold), // 700
+            bodyMedium2: .systemFont(ofSize: 20, weight: .medium), // 500
             bodyCompact1: .systemFont(ofSize: 14, weight: .regular) // 400
         ),
         appearance: .init(
-            formInsets: .init(top: 16, left: 16, bottom: 16, right: 16),
+            formInsets: .init(top: 16, leading: 16, bottom: 16, trailing: 16),
             sectionSpacing: 24,
             rowSpacing: 16,
             cornerRadius: 8,

@@ -1,15 +1,17 @@
 import UIKit
 
-// MARK: - GPBaseButton
+/// This is an abstract class
 open class GPBaseButton: UIView {
     public enum State {
         case active, loading, success, inactive
     }
     
     // MARK: - UI Elements
-    private lazy var icLeading: UIImageView = {
+    lazy var imvIcon: UIImageView = {
         let ic = UIImageView()
         ic.isUserInteractionEnabled = false
+        ic.setSize(.init(width: 24, height: 24))
+        ic.contentMode = .scaleAspectFit
         return ic
     }()
     lazy var lblTitle: UILabel = {
@@ -18,7 +20,7 @@ open class GPBaseButton: UIView {
         return lbl
     }()
     private lazy var primaryView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [icLeading, lblTitle])
+        let stackView = UIStackView(arrangedSubviews: [imvIcon, lblTitle])
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.spacing = 8
@@ -27,7 +29,15 @@ open class GPBaseButton: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    private lazy var secondaryView: UIImageView = {
+    private lazy var loadingView: UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.isUserInteractionEnabled = false
+        NSLayoutConstraint.activate([image.widthAnchor.constraint(equalToConstant: 24),
+                                     image.heightAnchor.constraint(equalToConstant: 24)])
+        return image
+    }()
+    private lazy var successView: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.isUserInteractionEnabled = false
@@ -41,11 +51,7 @@ open class GPBaseButton: UIView {
     }()
     
     // MARK: - Properties
-    var icon: UIImage?
-    var title: String?
-    var icLoading: UIImage?
-    var icSuccess: UIImage?
-    var onTap: (() -> Void)?
+    private var onTap: (() -> Void)?
     var state: State = .active
     
     public override init(frame: CGRect) {
@@ -59,8 +65,10 @@ open class GPBaseButton: UIView {
     }
     
     private func commonInit() {
+        // constraint subviews
         addSubview(primaryView)
-        addSubview(secondaryView)
+        addSubview(loadingView)
+        addSubview(successView)
         NSLayoutConstraint.activate([
             primaryView.centerXAnchor.constraint(equalTo: centerXAnchor),
             primaryView.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -70,71 +78,40 @@ open class GPBaseButton: UIView {
             primaryView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
         ])
         NSLayoutConstraint.activate([
-            secondaryView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            secondaryView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            secondaryView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
-            secondaryView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
-            secondaryView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
-            secondaryView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
+            loadingView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            loadingView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            loadingView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
+            loadingView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
+            loadingView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
+            loadingView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
         ])
+        NSLayoutConstraint.activate([
+            successView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            successView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            successView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
+            successView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
+            successView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
+            successView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
+        ])
+        
+        // register tap behavior
         let tap = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
         tap.minimumPressDuration = 0
         addGestureRecognizer(tap)
-    }
-    
-    internal func setup(
-        title: String? = nil,
-        icon: UIImage? = nil,
-        icLoading: UIImage? = nil,
-        icSuccess: UIImage? = nil,
-        height: CGFloat? = nil,
-        onTap: (() -> Void)? = nil
-    ) {
-        self.icon = icon
-        self.title = title
-        self.icLoading = icLoading
-        self.icSuccess = icSuccess
-        self.onTap = onTap
-        if let height {
+        
+        // set up views
+        if let height = getHeight() {
             nsHeight.constant = height
             nsHeight.isActive = true
         } else {
             nsHeight.isActive = false
         }
-        if let icon {
-            icLeading.image = icon
+        if let icLoading = createLoadingImage() {
+            loadingView.image = icLoading
         }
-        if let title {
-            lblTitle.text = title
+        if let icSuccess = createSuccessImage() {
+            successView.image = icSuccess
         }
-        setState(state)
-    }
-    
-    internal func setState(_ state: State) {
-        self.state = state
-        switch state {
-        case .active, .inactive:
-            primaryView.isHidden = false
-            secondaryView.isHidden = true
-        case .loading:
-            primaryView.isHidden = true
-            secondaryView.isHidden = false
-            if let icLoading {
-                secondaryView.image = icLoading
-            }
-        case .success:
-            primaryView.isHidden = true
-            secondaryView.isHidden = false
-            if let icSuccess {
-                secondaryView.image = icSuccess
-            }
-        }
-        doStyle(for: state)
-    }
-    
-    /// Child class must override this function to set style for states
-    func doStyle(for state: State) {
-        fatalError("Child class must implement this function")
     }
     
     @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
@@ -150,6 +127,88 @@ open class GPBaseButton: UIView {
         default:
             break
         }
+    }
+    
+    public func config(title: String? = nil, icon: UIImage? = nil, onTap: (() -> Void)? = nil) {
+        self.onTap = onTap
+        setIcon(icon)
+        setTitle(title)
+        setState(state)
+    }
+    
+    public func setState(_ state: State) {
+        self.state = state
+        primaryView.isHidden = true
+        loadingView.isHidden = true
+        successView.isHidden = true
+        isUserInteractionEnabled = false
+        setLoadingState(false)
+        
+        switch state {
+        case .active:
+            primaryView.isHidden = false
+            isUserInteractionEnabled = true
+        case .inactive:
+            primaryView.isHidden = false
+        case .loading:
+            setLoadingState(true)
+        case .success:
+            successView.isHidden = false
+        }
+        doStyle(for: state)
+    }
+    
+    public func setTitle(_ title: String?) {
+        if let title {
+            lblTitle.isHidden = false
+            lblTitle.text = title
+        } else {
+            lblTitle.isHidden = true
+        }
+    }
+    
+    public func setIcon(_ icon: UIImage?) {
+        if let icon {
+            imvIcon.isHidden = false
+            imvIcon.image = icon
+        } else {
+            imvIcon.isHidden = true
+        }
+    }
+    
+    private func setLoadingState(_ isLoading: Bool) {
+        loadingView.isHidden = !isLoading
+        if isLoading {
+            // Apply a rotation animation
+            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+            rotationAnimation.toValue = NSNumber(value: Double.pi * 2)
+            rotationAnimation.duration = 0.8
+            rotationAnimation.isCumulative = true
+            rotationAnimation.repeatCount = .infinity
+            loadingView.layer.add(rotationAnimation, forKey: "rotationAnimation")
+        } else {
+            loadingView.layer.removeAllAnimations()
+        }
+    }
+    
+    /// Child class must override this function to set style for states
+    func doStyle(for state: State) {
+        fatalError("Child class must implement this function")
+    }
+    
+    /// Child class can override this function to provide loading image
+    func createLoadingImage() -> UIImage? {
+        return nil
+    }
+    
+    /// Child class can override this function to provide success image
+    func createSuccessImage() -> UIImage? {
+        return nil
+    }
+    
+    /// Child class can override this function to provide height of button
+    func getHeight() -> CGFloat? {
+        return nil
     }
 }
 
