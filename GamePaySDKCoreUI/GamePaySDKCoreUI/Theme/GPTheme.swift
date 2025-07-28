@@ -164,7 +164,7 @@ public extension GPTheme {
 // MARK: - Spacing
 public extension GPTheme {
     struct Appearance {
-        public var formInsets: UIEdgeInsets
+        public var formInsets: NSDirectionalEdgeInsets
         public var sectionSpacing: CGFloat
         public var rowSpacing: CGFloat
         public var cornerRadius: CGFloat
@@ -172,7 +172,7 @@ public extension GPTheme {
         public var borderWidth: CGFloat
         
         public init(
-            formInsets: UIEdgeInsets,
+            formInsets: NSDirectionalEdgeInsets,
             sectionSpacing: CGFloat,
             rowSpacing: CGFloat,
             cornerRadius: CGFloat,

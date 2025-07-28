@@ -30,15 +30,26 @@ public class GPPrimaryButton: GPBaseButton {
         case .active:
             backgroundColor = theme.colors.bgDefaultDark
             lblTitle.textColor = theme.colors.textButtonLight
+            imvIcon.tintColor = theme.colors.textButtonLight
         case .inactive:
             backgroundColor = theme.colors.bgInactive
             lblTitle.textColor = theme.colors.textButtonInactivePrimary
+            imvIcon.tintColor = theme.colors.textButtonInactivePrimary
         case .loading, .success:
             backgroundColor = theme.colors.bgDefaultDark
         }
     }
     
-    func config(title: String? = nil, icon: UIImage? = nil, onTap: () -> Void) {
-//        setup(title: title, icon: icon, )
+    override func createLoadingImage() -> UIImage? {
+        GPAssets.icLoading.image
     }
+    
+    override func createSuccessImage() -> UIImage? {
+        GPAssets.ic_success.image
+    }
+    
+    override func getHeight() -> CGFloat? {
+        54
+    }
+    
 }

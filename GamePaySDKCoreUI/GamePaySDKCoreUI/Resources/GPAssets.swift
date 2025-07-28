@@ -10,8 +10,8 @@ import UIKit
 public class BundleProvider { }
 let GamePaySDKCoreUIBundle = Bundle(for: BundleProvider.self)
 
-enum GPAssets: String {
-    var image: UIImage {
+public enum GPAssets: String {
+    public var image: UIImage {
         return UIImage(named: self.rawValue,
                        in: GamePaySDKCoreUIBundle,
                        compatibleWith: nil) ?? UIImage()
@@ -34,7 +34,9 @@ enum GPAssets: String {
     case ic_declined
     case logoFooter = "logo_footer"
     case icCheckmark = "ic_checkmark"
-    case icWarning = "ic_warning"
+    case icError = "ic_error"
     case icDropdown = "ic_dropdown"
     case icSearch = "ic_search"
+    case icWarning = "ic_warning"
+    case icInfo = "ic_info"
 }

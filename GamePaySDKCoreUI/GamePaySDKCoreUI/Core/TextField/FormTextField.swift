@@ -39,7 +39,7 @@ public class FormTextField: UIView, FormElementType {
         return errorLabel
     }()
     private lazy var errorView: UIView = {
-        let icon = UIImageView(image: GPAssets.icWarning.image)
+        let icon = UIImageView(image: GPAssets.icError.image)
         let view = UIStackView(arrangedSubviews: [icon, errorLabel])
         view.spacing = 4
         return view

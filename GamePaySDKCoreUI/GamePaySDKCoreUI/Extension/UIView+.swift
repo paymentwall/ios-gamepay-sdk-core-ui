@@ -19,6 +19,14 @@ extension UIView {
         ])
     }
     
+    func setSize(_ size: CGSize) {
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            widthAnchor.constraint(equalToConstant: size.width),
+            heightAnchor.constraint(equalToConstant: size.height)
+        ])
+    }
+    
     /// Animates changes to one or more views alongside the keyboard.
     ///
     /// - Parameters:
