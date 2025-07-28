@@ -108,6 +108,7 @@ public class PhoneTextField: PayAltoFormTextField {
             options: allCountries,
             selectedOption: selectedOption,
             navBarTitle: "Select country",
+            hasSearchOption: true,
             theme: theme
         )
         

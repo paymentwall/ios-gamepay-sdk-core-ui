@@ -257,7 +257,9 @@ extension FormTextField: UITextFieldDelegate {
 extension FormTextField {
     public func showError(message: String?) {
         // TODO: Update selectedBorderWidth
-        applyBorder(width: 2, color: theme.colors.borderError)
+        for subview in textFieldStackView.subviews {
+            applyBorder(view: subview, width: 2, color: theme.colors.borderError)
+        }
         errorLabel.text = message
         errorView.isHidden = false
         invalidateIntrinsicContentSize()
@@ -265,7 +267,9 @@ extension FormTextField {
     
     public func hideError() {
         // TODO: Update borderWidth
-        applyBorder(width: 1)
+        for subview in textFieldStackView.subviews {
+            applyBorder(view: subview, width: 1)
+        }       
         errorView.isHidden = true
         invalidateIntrinsicContentSize()
     }
@@ -276,8 +280,21 @@ extension FormTextField {
         }
     }
     
-    private func applyBorder(width: CGFloat, color: UIColor? = nil) {
-        textField.layer.borderWidth = width
-        textField.layer.borderColor = color?.cgColor ?? theme.colors.borderPrimary.cgColor
+    private func applyBorder(view: UIView? = nil, width: CGFloat, color: UIColor? = nil) {
+        var action: () -> Void = { [weak self] in
+            guard let self = self else { return }
+            textField.layer.borderWidth = width
+            textField.layer.borderColor = color?.cgColor ?? theme.colors.borderPrimary.cgColor
+        }
+        
+        if let view = view {
+            action = { [weak self] in
+                guard let self = self else { return }
+                view.layer.borderWidth = width
+                view.layer.borderColor = color?.cgColor ?? theme.colors.borderPrimary.cgColor
+            }
+        }
+        
+        UIView.transition(with: view ?? textField, duration: 0.25, options: .transitionCrossDissolve, animations: action)
     }
 }

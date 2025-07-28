@@ -27,7 +27,7 @@ public enum GPThemeStore {
             bgPaymentDark: UIColor(hex: "#000000"),
             borderPayment: UIColor(hex: "#D6E4FF"),
             borderSubtle: UIColor(hex: "#D6E4FF"),
-            borderPrimary: UIColor(hex: "#3E527A"),
+            borderPrimary: UIColor(hex: "#060B14"),
             borderError: UIColor(hex: "#FF3A3A"),
             borderKeyboardPrimary: UIColor(hex: "#098DE5"),
             borderKeyboardSeconday: UIColor(hex: "#E0F3FF"),

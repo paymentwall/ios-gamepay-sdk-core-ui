@@ -36,4 +36,5 @@ enum GPAssets: String {
     case icCheckmark = "ic_checkmark"
     case icWarning = "ic_warning"
     case icDropdown = "ic_dropdown"
+    case icSearch = "ic_search"
 }
