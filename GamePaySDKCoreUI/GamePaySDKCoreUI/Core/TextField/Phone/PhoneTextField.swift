@@ -7,46 +7,41 @@
 
 import UIKit
 
-public class PhoneTextField: PayAltoFormTextField {
+public class PhoneTextField: FormTextField {
     // MARK: - Properties
     private let phoneNumberKit = PhoneNumberKit()
     private var selectedRegion: String
     private lazy var formatter = PartialFormatter(phoneNumberKit: phoneNumberKit, defaultRegion: selectedRegion)
     
     weak var presentingViewController: UIViewController?
+    private var selectedOption: DropdownOption?
+    private lazy var allCountries: [PhoneDropdownOption] = {
+        phoneNumberKit.allCountries()
+            .compactMap { PhoneDropdownOption(for: $0, with: phoneNumberKit) }
+            .sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+    }()
     
+    // MARK: - UI Properties
     private var phoneCodeStackView = UIStackView()
     private let flagLabel = UILabel()
     private let codeLabel = UILabel()
     private let icon = UIImageView(image: GPAssets.icDropdown.image)
     
-    private var selectedOption: DropdownOption?
-    
-    private lazy var allCountries: [DropdownPhoneOption] = {
-        phoneNumberKit.allCountries()
-            .compactMap { DropdownPhoneOption(for: $0, with: phoneNumberKit) }
-            .sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
-    }()
-    
     // MARK: - Overrides
-    public override var formValue: String {
-        return unformat(text)
-    }
-    
     public override var validationText: String {
         return unformat(text)
     }
     
     // MARK: - Init
-    public init(formKey: String? = nil,
-                defaultCountry: String? = nil,
+    public init(defaultCountry: String? = nil,
                 title: String,
                 placeholder: String,
                 presentingVC: UIViewController,
                 theme: GPTheme) {
         self.selectedRegion = defaultCountry ?? "US" // Set default to US
         self.presentingViewController = presentingVC
-        super.init(formKey: formKey, title: title, placeholder: placeholder, theme: theme)
+        super.init(title: title, placeholder: placeholder, theme: theme)
+        setupView()
     }
     
     required init?(coder: NSCoder) {
@@ -54,7 +49,7 @@ public class PhoneTextField: PayAltoFormTextField {
     }
     
     // MARK: - Setup
-    public override func setupView() {
+    private func setupView() {
         textField.keyboardType = .phonePad
         
         phoneCodeStackView = UIStackView(arrangedSubviews: [flagLabel, codeLabel, icon])
@@ -74,16 +69,16 @@ public class PhoneTextField: PayAltoFormTextField {
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapCountrySelector))
         phoneCodeStackView.addGestureRecognizer(tap)
-        flagLabel.font = defaultFont
-        codeLabel.font = defaultFont
+        flagLabel.font = theme.typography.body1
+        codeLabel.font = theme.typography.body1
         codeLabel.textColor = theme.colors.textPrimary
         flagLabel.setContentHuggingPriority(.required, for: .horizontal)
         codeLabel.setContentHuggingPriority(.required, for: .horizontal)
         codeLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         
-        textFieldStackView.removeAllSubviews()
+        tfStackView.removeAllSubviews()
         [phoneCodeStackView, textField].forEach {
-            textFieldStackView.addArrangedSubview($0)
+            tfStackView.addArrangedSubview($0)
         }
         
         updateCountryUI(to: selectedRegion)
@@ -104,7 +99,7 @@ public class PhoneTextField: PayAltoFormTextField {
     @objc private func didTapCountrySelector() {
         guard let vc = presentingViewController else { return }
         
-        let sheet = DropdownSheetViewController(
+        let sheet = DropdownSheetViewController<PhoneDropdownCell>(
             options: allCountries,
             selectedOption: selectedOption,
             navBarTitle: "Select country",
@@ -113,7 +108,7 @@ public class PhoneTextField: PayAltoFormTextField {
         )
         
         sheet.onSelect = { [weak self] selectedCountry in
-            guard let self, let selected = selectedCountry as? DropdownPhoneOption else { return }
+            guard let self, let selected = selectedCountry as? PhoneDropdownOption else { return }
             self.selectedOption = selectedCountry
             self.updateCountryUI(to: selected.value)
         }
@@ -138,7 +133,7 @@ public class PhoneTextField: PayAltoFormTextField {
         }, completion: nil)
     }
     
-    private func unformat(_ text: String?) -> String {
+    func unformat(_ text: String?) -> String {
         guard let text else { return "" }
         
         do {

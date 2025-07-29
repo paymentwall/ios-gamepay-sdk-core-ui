@@ -7,14 +7,14 @@
 
 import UIKit
 
-public class PayAltoFormTextField: FormTextField, FormElement {
+public class BasePayAltoTextField: FormTextField, FormElement {
     // MARK: - FormElement
     public var view: UIView { self }
     public var formKey: String?
     public var formValue: String { text }
     
     public init(
-        formKey: String? = nil,
+        formKey: String,
         title: String,
         placeholder: String,
         theme: GPTheme

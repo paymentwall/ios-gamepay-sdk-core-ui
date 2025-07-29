@@ -36,18 +36,12 @@ public class PANTextField: FormTextField {
             formatter: PANFormatter(),
             theme: theme
         )
+        
+        setupView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    public override var validationText: String {
-        formattedPAN
-    }
-    
-    var formattedPAN: String {
-        textField.text?.replacingOccurrences(of: " ", with: "") ?? ""
     }
     
     override func textDidChange() {
@@ -55,14 +49,14 @@ public class PANTextField: FormTextField {
         updateCardIcon()
     }
 
-    public override func setupView() {
+    private func setupView() {
         textField.keyboardType = .numberPad
         setIcon(GPAssets.icCardNumber.image, on: .Left)
         setIcon(GPAssets.icScanCard.image, on: .Right)
     }
     
     private func updateCardIcon() {
-        let brand = CardBrandLibrary.detect(from: formattedPAN)
+        let brand = CardBrandLibrary.detect(from: validationText)
         setIcon(for: brand)
     }
     

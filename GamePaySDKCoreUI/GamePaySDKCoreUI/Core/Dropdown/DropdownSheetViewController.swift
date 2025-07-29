@@ -7,26 +7,40 @@
 
 import UIKit
 
-class DropdownSheetViewController: UIViewController {
-    // MARK: - Properties
-    let options: [DropdownOption]
-    private var filteredOptions: [DropdownOption] = []
-    let navBarTitle: String
-    let theme: GPTheme
-    private let hasSearchOption: Bool
-    let selectedOption: DropdownOption?
-    private let estimatedCellHeight: CGFloat = 64
+class DropdownSheetViewController<T: BaseDropdownCell>: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    // MARK: - Constants
     private let navBarHeight: CGFloat = 48
+    private var reuseIdentifier: String { String(describing: T.self) }
     
-    // MARK: - Subviews
+    // MARK: - Properties
+    private let options: [DropdownOption]
+    private var filteredOptions: [DropdownOption] = []
+    private let navBarTitle: String
+    private let theme: GPTheme
+    private let hasSearchOption: Bool
+    private let selectedOption: DropdownOption?
+    
+    var onSelect: ((DropdownOption) -> Void)?
+    
+    private var estimatedHeight: CGFloat {
+        let estimatedTableViewHeight = CGFloat(options.count) * T.estimatedHeight
+        let window = UIApplication.shared.windows.first
+        let totalSpacing = theme.appearance.padding * 2 + (window?.safeAreaInsets.bottom ?? 0)
+        let heightCalculated = estimatedTableViewHeight + navBar.bounds.height + totalSpacing
+        let maxAllowedHeight = view.safeAreaLayoutGuide.layoutFrame.height
+        let finalHeight = min(heightCalculated, maxAllowedHeight)
+        return finalHeight
+    }
+    
+    // MARK: - UI Components
     private let navBar = UIView()
     private let closeButton = UIButton(type: .system)
     private let tableView = UITableView()
-    private lazy var searchTextField = SearchTextField(theme: theme)
+    private lazy var searchTextField = SearchTextField(theme: theme) { [weak self] text in
+        self?.filterContent(for: text)
+    }
     
-    // MARK: - Public Properties
-    var onSelect: ((DropdownOption) -> Void)?
-    
+    // MARK: - Init
     init(
         options: [DropdownOption],
         selectedOption: DropdownOption? = nil,
@@ -52,7 +66,7 @@ class DropdownSheetViewController: UIViewController {
         view.backgroundColor = theme.colors.bgDefaultLight
         setupUI()
     }
-    
+
     // MARK: - Setup UI
     private func setupUI() {
         setupNavBar()
@@ -97,9 +111,6 @@ class DropdownSheetViewController: UIViewController {
 
         if hasSearchOption {
             searchTextField.translatesAutoresizingMaskIntoConstraints = false
-            searchTextField.onTextChanged = { [weak self] text in
-                self?.filterContent(for: text)
-            }
             navBar.addSubview(searchTextField)
 
             NSLayoutConstraint.activate([
@@ -114,6 +125,7 @@ class DropdownSheetViewController: UIViewController {
             ])
         }
         
+        // Force layout to calculate the estimated height of tableview
         view.layoutIfNeeded()
     }
 
@@ -122,29 +134,25 @@ class DropdownSheetViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = estimatedCellHeight
+        tableView.estimatedRowHeight = T.estimatedHeight
         tableView.keyboardDismissMode = .onDrag
-        tableView.register(DropdownOptionCell.self, forCellReuseIdentifier: "DropdownOptionCell")
-        view.addSubview(tableView)
+        tableView.separatorStyle = .none
+        tableView.register(T.self, forCellReuseIdentifier: reuseIdentifier)
         
-        // Calculate final height
-        let estimatedTableViewHeight = CGFloat(options.count) * estimatedCellHeight
-        let totalSpacing = theme.appearance.padding * 2
-        let heightCalculated = estimatedTableViewHeight + navBar.bounds.height + totalSpacing
-        let maxAllowedHeight = view.safeAreaLayoutGuide.layoutFrame.height
-        let finalHeight = min(heightCalculated, maxAllowedHeight)
+        view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: navBar.bottomAnchor, constant: theme.appearance.padding),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            view.heightAnchor.constraint(equalToConstant: finalHeight)
+            view.heightAnchor.constraint(equalToConstant: estimatedHeight)
         ])
         
         scrollToSelectedOptionIfNeeded()
     }
     
+    // MARK: - Helpers
     private func scrollToSelectedOptionIfNeeded() {
         guard let selectedOption = selectedOption,
               let index = options.firstIndex(where: { $0.value == selectedOption.value }) else { return }
@@ -167,24 +175,19 @@ class DropdownSheetViewController: UIViewController {
     @objc private func dismissSheet() {
         dismiss(animated: true)
     }
-}
-
-extension DropdownSheetViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredOptions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let option = filteredOptions[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DropdownOptionCell", for: indexPath) as! DropdownOptionCell
-        
-        if let option = option as? DropdownPhoneOption {
-            cell.configure(with: option, theme: theme)
-            return cell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? T else {
+            return UITableViewCell()
         }
-        
-        let isSelectedCell = option.value == selectedOption?.value
-        cell.configure(with: option, theme: theme, isSelected: isSelectedCell)
+        cell.isSelectedCell = option.value == selectedOption?.value
+        cell.configureCell(with: option, theme: theme)
         return cell
     }
     
@@ -194,6 +197,7 @@ extension DropdownSheetViewController: UITableViewDataSource, UITableViewDelegat
     }
 }
 
+// MARK: - BottomSheetPresentable
 extension DropdownSheetViewController: BottomSheetPresentable {
     func didTapOrSwipeToDismiss() {
         dismissSheet()

@@ -28,7 +28,6 @@ struct ExpDateFormatter: TextFieldFormatter {
 }
 
 public class ExpDateTextField: FormTextField {
-    
     private let prefixYear = "20"
     
     public init(theme: GPTheme) {
@@ -38,29 +37,23 @@ public class ExpDateTextField: FormTextField {
             formatter: ExpDateFormatter(),
             theme: theme
         )
+        
+        setupView()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    public override var validationText: String {
-        return expDateFormatted
-    }
     
-    public override func setupView() {
+    private func setupView() {
         textField.keyboardType = .numberPad
     }
 
-    var expDateFormatted: String {
-        textField.text?.replacingOccurrences(of: "/", with: "") ?? ""
-    }
-
     var expMonth: String {
-        String(expDateFormatted.prefix(2))
+        String(validationText.prefix(2))
     }
 
     var expYear: String {
-        prefixYear + String(expDateFormatted.suffix(2))
+        prefixYear + String(validationText.suffix(2))
     }
 }

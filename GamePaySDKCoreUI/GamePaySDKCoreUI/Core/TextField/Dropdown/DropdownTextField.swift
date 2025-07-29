@@ -7,13 +7,9 @@
 
 import UIKit
 
-public class DropdownTextField: PayAltoFormTextField {
-    public override var formValue: String {
-        return selectedValue
-    }
-    
+public class DropdownTextField: FormTextField {
     private var selectedOption: DropdownOption?
-    private var selectedValue: String {
+    var selectedValue: String {
         selectedOption?.value ?? ""
     }
     
@@ -23,7 +19,6 @@ public class DropdownTextField: PayAltoFormTextField {
     private let dropdownIcon = GPAssets.icDropdown.image
   
     public init(
-        formKey: String? = nil,
         options: [DropdownOption],
         title: String,
         placeholder: String,
@@ -32,14 +27,15 @@ public class DropdownTextField: PayAltoFormTextField {
     ) {
         self.options = options
         self.presentingViewController = presentingVC
-        super.init(formKey: formKey, title: title, placeholder: placeholder, theme: theme)
+        super.init(title: title, placeholder: placeholder, theme: theme)
+        setupView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public override func setupView() {
+    private func setupView() {
         textField.isUserInteractionEnabled = false
         setIcon(dropdownIcon, on: .Right, useTemplate: true)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapDropdown))
@@ -48,7 +44,7 @@ public class DropdownTextField: PayAltoFormTextField {
 
     @objc private func didTapDropdown() {
         guard let vc = presentingViewController else { return }
-        let sheet = DropdownSheetViewController(
+        let sheet = DropdownSheetViewController<IconTextDropdownCell>(
             options: options,
             selectedOption: selectedOption,
             navBarTitle: placeholder,
@@ -64,3 +60,4 @@ public class DropdownTextField: PayAltoFormTextField {
         vc.presentAsBottomSheet(sheet, theme: theme)
     }
 }
+

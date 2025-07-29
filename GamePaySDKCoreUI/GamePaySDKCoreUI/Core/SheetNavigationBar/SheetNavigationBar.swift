@@ -26,8 +26,7 @@ class SheetNavigationBar: UIView {
             subviews.append(testView)
         }
         let stack = UIStackView(arrangedSubviews: subviews)
-        // TODO: Update padding
-        stack.spacing = 16
+        stack.spacing = theme.appearance.padding
         stack.alignment = .center
         return stack
     }()
@@ -69,15 +68,12 @@ class SheetNavigationBar: UIView {
         }
         
         NSLayoutConstraint.activate([
-            // TODO: Update padding
-            leftItemsStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            leftItemsStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: theme.appearance.padding),
             leftItemsStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             leftItemsStackView.trailingAnchor.constraint(lessThanOrEqualTo: closeButtonRight.leadingAnchor),
             leftItemsStackView.heightAnchor.constraint(equalTo: heightAnchor),
 
-            closeButtonRight.trailingAnchor.constraint(
-                // TODO: Update padding
-                equalTo: trailingAnchor, constant: -16),
+            closeButtonRight.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -theme.appearance.padding),
             closeButtonRight.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
         

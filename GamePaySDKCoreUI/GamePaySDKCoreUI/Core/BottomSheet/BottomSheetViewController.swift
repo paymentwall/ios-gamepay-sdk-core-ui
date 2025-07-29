@@ -115,8 +115,12 @@ class BottomSheetViewController: UIViewController, BottomSheetPresentable {
         ])
         
         contentContainerView.translatesAutoresizingMaskIntoConstraints = false
-        // TODO: Update defaultPadding
-        contentContainerView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 40, trailing: 16)
+        contentContainerView.directionalLayoutMargins = NSDirectionalEdgeInsets(
+            top: 0,
+            leading: theme.appearance.padding,
+            bottom: 40,
+            trailing: theme.appearance.padding
+        )
         scrollView.addSubview(contentContainerView)
         
         // Give the scroll view a desired height
