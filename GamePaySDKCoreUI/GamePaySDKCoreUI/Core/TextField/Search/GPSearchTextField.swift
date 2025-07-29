@@ -1,5 +1,5 @@
 //
-//  SearchTextField.swift
+//  GPSearchTextField.swift
 //  GamePaySDKCoreUI
 //
 //  Created by Luke Nguyen on 28/7/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class SearchTextField: FormTextField {
+public class GPSearchTextField: GPFormTextField {
     private let clearButton = UIButton(type: .system)
     
     public init(theme: GPTheme, onTextChange: @escaping (String) -> Void) {
@@ -21,9 +21,7 @@ public class SearchTextField: FormTextField {
     }
     
     private func setupView() {
-        titleLabel.isHidden = true
-        errorView.isHidden = true
-        
+        setPlainTextField()
         setIcon(GPAssets.icSearch.image, on: .Left)
         
         clearButton.setImage(GPAssets.icCloseNavBar.image, for: .normal)

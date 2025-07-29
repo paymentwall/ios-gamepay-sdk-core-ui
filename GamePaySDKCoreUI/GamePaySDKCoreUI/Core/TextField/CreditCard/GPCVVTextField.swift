@@ -1,5 +1,5 @@
 //
-//  CVVTextField.swift
+//  GPCVVTextField.swift
 //  GamePaySDKCoreUI
 //
 //  Created by Luke Nguyen on 24/7/25.
@@ -9,7 +9,7 @@ struct CVVFormatter: TextFieldFormatter {
     var maxLength: Int { 4 }
 }
 
-public class CVVTextField: FormTextField {
+public class GPCVVTextField: GPFormTextField {
     public init(theme: GPTheme) {
         super.init(
             title: "CVV",

@@ -16,6 +16,8 @@ class TextFieldDemoViewController: UIViewController, FormViewValidatable {
     
     // MARK: - UI Elements
     @IBOutlet weak var stvContainer: UIStackView!
+    private lazy var allTextFields: [GPBaseTextField] = [searchTextField, phoneTextField, emailField, panField, expDateField, cvvField, dropdownTextField]
+    
     lazy var demoButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("Validate", for: .normal)
@@ -24,15 +26,15 @@ class TextFieldDemoViewController: UIViewController, FormViewValidatable {
         return btn
     }()
     
-    lazy var emailField: FormTextField = {
-        let tf = FormTextField(title: "Your email", placeholder: "Enter your email", theme: theme)
+    lazy var emailField: GPFormTextField = {
+        let tf = GPFormTextField(title: "Your email", placeholder: "Enter your email", theme: theme)
         return tf
     }()
     
-    private lazy var panField = PANTextField(theme: theme)
-    private lazy var expDateField = ExpDateTextField(theme: theme)
-    private lazy var cvvField = CVVTextField(theme: theme)
-    private lazy var dropdownTextField = PayAltoDropdownTextField(
+    private lazy var panField = GPPanTextField(theme: theme)
+    private lazy var expDateField = GPExpDateTextField(theme: theme)
+    private lazy var cvvField = GPCVVTextField(theme: theme)
+    private lazy var dropdownTextField = GPPayAltoDropdownTextField(
         formKey: "form-key",
         options: [.init(
             value: "apple",
@@ -44,7 +46,7 @@ class TextFieldDemoViewController: UIViewController, FormViewValidatable {
         presentingVC: self,
         theme: theme
     )
-    private lazy var phoneTextField = PayAltoPhoneTextField(
+    private lazy var phoneTextField = GPPayAltoPhoneTextField(
         formKey: "phone_form_key",
         defaultCountry: "VN",
         title: "Phone number",
@@ -52,8 +54,8 @@ class TextFieldDemoViewController: UIViewController, FormViewValidatable {
         presentingVC: self,
         theme: theme
     )
-    private lazy var searchTextField: SearchTextField = {
-        let search = SearchTextField(theme: theme) { [weak self] text in
+    private lazy var searchTextField: GPSearchTextField = {
+        let search = GPSearchTextField(theme: theme) { [weak self] text in
             print(text)
         }
         
@@ -67,7 +69,7 @@ class TextFieldDemoViewController: UIViewController, FormViewValidatable {
         super.viewDidLoad()
         setupTapEndEditing()
         
-        [searchTextField, phoneTextField, emailField, panField, expDateField, cvvField, dropdownTextField].forEach {
+        allTextFields.forEach {
             stvContainer.addArrangedSubview($0)
         }
         stvContainer.addArrangedSubview(demoButton)
@@ -102,6 +104,9 @@ class TextFieldDemoViewController: UIViewController, FormViewValidatable {
 
     @objc
     private func validateAndSubmit() {
+        for allTextField in allTextFields {
+            print(allTextField.validationText)
+        }
         validator.validate(self)
     }
     

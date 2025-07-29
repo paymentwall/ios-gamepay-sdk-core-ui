@@ -1,11 +1,11 @@
 //
-//  PhoneDropdownOption.swift
+//  GPPhoneDropdownOption.swift
 //  GamePaySDKCoreUI
 //
 //  Created by Luke Nguyen on 28/7/25.
 //
 
-class PhoneDropdownOption: DropdownOption {
+class GPPhoneDropdownOption: GPDropdownOption {
     let phoneCode: UInt64?
     var flag: String?
 

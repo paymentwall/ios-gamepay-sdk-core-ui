@@ -5,7 +5,7 @@
 //  Created by Luke Nguyen on 25/7/25.
 //
 
-public class DropdownOption: Codable {
+public class GPDropdownOption: Codable {
     let value: String
     let name: String
     let logoUrl: String?

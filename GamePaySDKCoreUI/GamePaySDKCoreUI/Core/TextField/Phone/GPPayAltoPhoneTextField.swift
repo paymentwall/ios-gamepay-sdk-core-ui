@@ -1,5 +1,5 @@
 //
-//  PayAltoPhoneTextField.swift
+//  GPPayAltoPhoneTextField.swift
 //  GamePaySDKCoreUI
 //
 //  Created by Luke Nguyen on 28/7/25.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-public class PayAltoPhoneTextField: PhoneTextField, FormElement {
+public class GPPayAltoPhoneTextField: GPPhoneTextField, FormElement {
     public var view: UIView { self }
     public var formKey: String?
     public var formValue: String {
-        return unformat(text)
+        return unformat(phoneTextField.text)
     }
     
     public init(formKey: String,

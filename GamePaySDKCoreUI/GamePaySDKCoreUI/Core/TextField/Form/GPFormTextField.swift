@@ -1,5 +1,5 @@
 //
-//  FormTextField.swift
+//  GPFormTextField.swift
 //  GamePaySDKCoreUI
 //
 //  Created by Luke Nguyen on 24/7/25.
@@ -11,7 +11,7 @@ enum TextFieldSide {
     case Left, Right, Both
 }
 
-public class FormTextField: BaseTextField {
+public class GPFormTextField: GPBaseTextField {
     // MARK: - Public Properties
     public var onTextChanged: ((String) -> Void)?
     public var onShouldReturn: (() -> Bool)?
@@ -46,8 +46,6 @@ public class FormTextField: BaseTextField {
     }
     
     private func setupLayout() {
-        tfStackView.addArrangedSubview(textField)
-        
         textField.textColor = theme.colors.textPrimary
         textField.backgroundColor = theme.colors.bgDefaultLight
         textField.font = theme.typography.body1
@@ -65,6 +63,10 @@ public class FormTextField: BaseTextField {
         textField.delegate = self
     }
     
+    public override func getChildViews() -> [UIView] {
+        return [textField]
+    }
+    
     public override func setPlaceholder() {
         textField.attributedPlaceholder = NSAttributedString(
             string: placeholder,
@@ -78,6 +80,12 @@ public class FormTextField: BaseTextField {
     // MARK: - Public APIs
     func setText(_ text: String) {
         textField.text = text
+        textField.sendActions(for: .editingChanged)
+    }
+    
+    func setPlainTextField() {
+        titleLabel.isHidden = true
+        errorView.isHidden = true
     }
     
     func setIcon(
@@ -160,21 +168,35 @@ public class FormTextField: BaseTextField {
     }
     
     @objc func textDidChange() {
-        clearErrorIfNeeded()
+        hideError()
         onTextChanged?(textField.text ?? "")
     }
     
     @objc func editingDidBegin() {
-        clearErrorIfNeeded()
-        applyBorder(view: textField, width: 2)
+        hideError()
+        applyBorder(to: textField, width: 2)
     }
     
     @objc func editingDidEnd() {
-        applyBorder(view: textField, width: theme.appearance.borderWidth)
+        applyBorder(to: textField, width: theme.appearance.borderWidth)
+    }
+    
+    public override func showError(message: String?) {
+        guard !isError else { return }
+        
+        super.showError(message: message)
+        applyBorder(to: textField, width: 2, color: theme.colors.borderError)
+    }
+    
+    public override func hideError() {
+        guard isError else { return }
+        
+        super.hideError()
+        applyBorder(to: textField, width: theme.appearance.borderWidth)
     }
 }
 
-extension FormTextField: UITextFieldDelegate {
+extension GPFormTextField: UITextFieldDelegate {
     open func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let currentText = textField.text,
               let stringRange = Range(range, in: currentText),

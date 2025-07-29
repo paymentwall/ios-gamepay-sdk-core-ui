@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ErrorView: UIView {
+public final class ErrorView: UIView {
     private let iconImageView: UIImageView = {
         let imageView = UIImageView(image: GPAssets.icError.image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -21,7 +21,7 @@ final class ErrorView: UIView {
         return label
     }()
 
-    init(theme: GPTheme) {
+    public init(theme: GPTheme) {
         super.init(frame: .zero)
         errorLabel.font = theme.typography.label2
         errorLabel.textColor = theme.colors.borderError

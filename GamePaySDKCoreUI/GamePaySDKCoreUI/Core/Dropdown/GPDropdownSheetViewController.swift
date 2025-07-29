@@ -7,20 +7,20 @@
 
 import UIKit
 
-class DropdownSheetViewController<T: BaseDropdownCell>: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class GPDropdownSheetViewController<T: GPBaseDropdownCell>: UIViewController, UITableViewDataSource, UITableViewDelegate {
     // MARK: - Constants
     private let navBarHeight: CGFloat = 48
     private var reuseIdentifier: String { String(describing: T.self) }
     
     // MARK: - Properties
-    private let options: [DropdownOption]
-    private var filteredOptions: [DropdownOption] = []
+    private let options: [GPDropdownOption]
+    private var filteredOptions: [GPDropdownOption] = []
     private let navBarTitle: String
     private let theme: GPTheme
     private let hasSearchOption: Bool
-    private let selectedOption: DropdownOption?
+    private let selectedOption: GPDropdownOption?
     
-    var onSelect: ((DropdownOption) -> Void)?
+    var onSelect: ((GPDropdownOption) -> Void)?
     
     private var estimatedHeight: CGFloat {
         let estimatedTableViewHeight = CGFloat(options.count) * T.estimatedHeight
@@ -36,14 +36,14 @@ class DropdownSheetViewController<T: BaseDropdownCell>: UIViewController, UITabl
     private let navBar = UIView()
     private let closeButton = UIButton(type: .system)
     private let tableView = UITableView()
-    private lazy var searchTextField = SearchTextField(theme: theme) { [weak self] text in
+    private lazy var searchTextField = GPSearchTextField(theme: theme) { [weak self] text in
         self?.filterContent(for: text)
     }
     
     // MARK: - Init
     init(
-        options: [DropdownOption],
-        selectedOption: DropdownOption? = nil,
+        options: [GPDropdownOption],
+        selectedOption: GPDropdownOption? = nil,
         navBarTitle: String,
         hasSearchOption: Bool = false,
         theme: GPTheme
@@ -186,8 +186,8 @@ class DropdownSheetViewController<T: BaseDropdownCell>: UIViewController, UITabl
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? T else {
             return UITableViewCell()
         }
-        cell.isSelectedCell = option.value == selectedOption?.value
-        cell.configureCell(with: option, theme: theme)
+        let isSelectedCell = option.value == selectedOption?.value
+        cell.configureCell(with: option, isSelectedCell: isSelectedCell, theme: theme)
         return cell
     }
     
@@ -198,7 +198,7 @@ class DropdownSheetViewController<T: BaseDropdownCell>: UIViewController, UITabl
 }
 
 // MARK: - BottomSheetPresentable
-extension DropdownSheetViewController: BottomSheetPresentable {
+extension GPDropdownSheetViewController: BottomSheetPresentable {
     func didTapOrSwipeToDismiss() {
         dismissSheet()
     }

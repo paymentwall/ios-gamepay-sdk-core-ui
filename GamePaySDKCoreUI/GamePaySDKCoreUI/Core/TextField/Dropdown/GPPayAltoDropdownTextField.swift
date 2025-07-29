@@ -1,5 +1,5 @@
 //
-//  PayAltoDropdownTextField.swift
+//  GPPayAltoDropdownTextField.swift
 //  GamePaySDKCoreUI
 //
 //  Created by Luke Nguyen on 28/7/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class PayAltoDropdownTextField: DropdownTextField, FormElement {
+public class GPPayAltoDropdownTextField: GPDropdownTextField, FormElement {
     public var view: UIView { self }
     public var formKey: String?
     public var formValue: String {
@@ -16,7 +16,7 @@ public class PayAltoDropdownTextField: DropdownTextField, FormElement {
     
     public init(
         formKey: String,
-        options: [DropdownOption],
+        options: [GPDropdownOption],
         title: String,
         placeholder: String,
         presentingVC: UIViewController,

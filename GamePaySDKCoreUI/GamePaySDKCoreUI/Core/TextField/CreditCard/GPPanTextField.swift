@@ -1,5 +1,5 @@
 //
-//  PANTextField.swift
+//  GPPanTextField.swift
 //  GamePaySDKCoreUI
 //
 //  Created by Luke Nguyen on 24/7/25.
@@ -27,7 +27,7 @@ struct PANFormatter: TextFieldFormatter {
     }
 }
 
-public class PANTextField: FormTextField {
+public class GPPanTextField: GPFormTextField {
     
     public init(theme: GPTheme) {
         super.init(
@@ -75,6 +75,7 @@ public class PANTextField: FormTextField {
         }
 
         let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
         applyIconView(imageView, on: side, animated: animated)
     }
 }

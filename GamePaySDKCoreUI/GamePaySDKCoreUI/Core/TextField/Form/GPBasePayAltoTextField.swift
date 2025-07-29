@@ -1,5 +1,5 @@
 //
-//  PayAltoFormTextField.swift
+//  GPBasePayAltoTextField.swift
 //  GamePaySDKCoreUI
 //
 //  Created by Luke Nguyen on 24/7/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class BasePayAltoTextField: FormTextField, FormElement {
+public class GPBasePayAltoTextField: GPFormTextField, FormElement {
     // MARK: - FormElement
     public var view: UIView { self }
     public var formKey: String?

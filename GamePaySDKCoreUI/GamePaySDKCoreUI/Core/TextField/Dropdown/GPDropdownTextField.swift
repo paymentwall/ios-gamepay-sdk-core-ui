@@ -1,5 +1,5 @@
 //
-//  DropdownTextField.swift
+//  GPDropdownTextField.swift
 //  GamePaySDKCoreUI
 //
 //  Created by Luke Nguyen on 25/7/25.
@@ -7,19 +7,21 @@
 
 import UIKit
 
-public class DropdownTextField: FormTextField {
-    private var selectedOption: DropdownOption?
-    var selectedValue: String {
+public class GPDropdownTextField: GPFormTextField {
+    
+    // MARK: - Properties
+    public var selectedValue: String {
         selectedOption?.value ?? ""
     }
     
-    let options: [DropdownOption]
-    weak var presentingViewController: UIViewController?
-    
+    private let options: [GPDropdownOption]
+    private weak var presentingViewController: UIViewController?
+    private var selectedOption: GPDropdownOption?
     private let dropdownIcon = GPAssets.icDropdown.image
-  
+    
+    // MARK: - Initializer
     public init(
-        options: [DropdownOption],
+        options: [GPDropdownOption],
         title: String,
         placeholder: String,
         presentingVC: UIViewController,
@@ -35,29 +37,36 @@ public class DropdownTextField: FormTextField {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Setup
     private func setupView() {
         textField.isUserInteractionEnabled = false
         setIcon(dropdownIcon, on: .Right, useTemplate: true)
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapDropdown))
         addGestureRecognizer(tapGesture)
     }
-
+    
+    // MARK: - Actions
     @objc private func didTapDropdown() {
-        guard let vc = presentingViewController else { return }
-        let sheet = DropdownSheetViewController<IconTextDropdownCell>(
+        guard let viewController = presentingViewController else { return }
+        
+        let sheet = GPDropdownSheetViewController<GPIconTextDropdownCell>(
             options: options,
             selectedOption: selectedOption,
             navBarTitle: placeholder,
             theme: theme
         )
+        
         sheet.onSelect = { [weak self] selected in
-            self?.selectedOption = selected
-            if let logoUrl = self?.selectedOption?.logoUrl {
-                self?.setIcon(from: logoUrl, on: .Left, animated: true)
+            guard let self = self else { return }
+            self.selectedOption = selected
+            self.setText(selected.name)
+            
+            if let logoUrl = selected.logoUrl {
+                self.setIcon(from: logoUrl, on: .Left, animated: true)
             }
-            self?.setText(selected.name)
         }
-        vc.presentAsBottomSheet(sheet, theme: theme)
+        
+        viewController.presentAsBottomSheet(sheet, theme: theme)
     }
 }
-

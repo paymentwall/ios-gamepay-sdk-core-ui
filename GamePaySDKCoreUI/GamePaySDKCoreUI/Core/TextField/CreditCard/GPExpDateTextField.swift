@@ -1,5 +1,5 @@
 //
-//  ExpDateTextField.swift
+//  GPExpDateTextField.swift
 //  GamePaySDKCoreUI
 //
 //  Created by Luke Nguyen on 24/7/25.
@@ -27,7 +27,7 @@ struct ExpDateFormatter: TextFieldFormatter {
     }
 }
 
-public class ExpDateTextField: FormTextField {
+public class GPExpDateTextField: GPFormTextField {
     private let prefixYear = "20"
     
     public init(theme: GPTheme) {
