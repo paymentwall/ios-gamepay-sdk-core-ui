@@ -6,7 +6,7 @@
 //
 
 struct ExpDateFormatter: TextFieldFormatter {
-    var maxLength: Int { 4 } // MMYY
+    var maxLength: Int { 5 } // MM/YY
 
     func format(_ text: String) -> String {
         let digits = text.filter(\.isNumber)
@@ -20,10 +20,6 @@ struct ExpDateFormatter: TextFieldFormatter {
             result += "/" + year.prefix(2)
         }
         return result
-    }
-    
-    func unformatted(_ text: String) -> String {
-        return text.replacingOccurrences(of: "/", with: "")
     }
 }
 
@@ -47,13 +43,5 @@ public class GPExpDateTextField: GPFormTextField {
     
     private func setupView() {
         textField.keyboardType = .numberPad
-    }
-
-    var expMonth: String {
-        String(validationText.prefix(2))
-    }
-
-    var expYear: String {
-        prefixYear + String(validationText.suffix(2))
     }
 }

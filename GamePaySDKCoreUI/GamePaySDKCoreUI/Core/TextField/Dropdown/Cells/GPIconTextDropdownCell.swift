@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GPIconTextDropdownCell: GPHorizontalDropdownCell {
+public class GPIconTextDropdownCell: GPHorizontalDropdownCell {
     private lazy var iconView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
@@ -31,7 +31,7 @@ class GPIconTextDropdownCell: GPHorizontalDropdownCell {
         return view
     }()
     
-    override func prepareForReuse() {
+    public override func prepareForReuse() {
         super.prepareForReuse()
         iconView.image = nil
         titleLabel.text = nil
@@ -42,7 +42,7 @@ class GPIconTextDropdownCell: GPHorizontalDropdownCell {
         return [iconView, titleLabel, selectedIconView]
     }
 
-    override func configureCell(with option: GPDropdownOption, isSelectedCell: Bool, theme: GPTheme) {
+    public override func configureCell(with option: GPDropdownOption, isSelectedCell: Bool, theme: GPTheme) {
         super.configureCell(with: option, isSelectedCell: isSelectedCell, theme: theme)
         
         titleLabel.text = option.name

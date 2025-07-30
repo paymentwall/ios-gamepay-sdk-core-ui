@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GPBaseDropdownCell: UITableViewCell {
+public class GPBaseDropdownCell: UITableViewCell {
     /// Estimated height used for layout calculation
     open class var estimatedHeight: CGFloat {
         return 64

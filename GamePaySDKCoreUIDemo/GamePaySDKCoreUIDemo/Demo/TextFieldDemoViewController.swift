@@ -34,9 +34,7 @@ class TextFieldDemoViewController: UIViewController, FormViewValidatable {
     private lazy var panField = GPPanTextField(theme: theme)
     private lazy var expDateField = GPExpDateTextField(theme: theme)
     private lazy var cvvField = GPCVVTextField(theme: theme)
-    private lazy var dropdownTextField = GPPayAltoDropdownTextField(
-        formKey: "form-key",
-        options: [.init(
+    private lazy var dropdownTextField = GPDropdownTextField<GPIconTextDropdownCell>(options: [.init(
             value: "apple",
             name: "Apple",
             logoUrl: "https://yt3.googleusercontent.com/F6YRXcBbkvTCIDvHrXqWfnht_stmrhSRvVVtTybO4JyBXFeyAOjMIWM-PlOq_8UTaPSGtXAyMA=s900-c-k-c0x00ffffff-no-rj"

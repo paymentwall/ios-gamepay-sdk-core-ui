@@ -22,43 +22,30 @@ public class GPPhoneTextField: GPBaseTextField {
     }()
     
     // MARK: - UI Properties
-    private lazy var phoneCodeView: UIStackView = {
-        let stv = UIStackView(arrangedSubviews: [flagLabel, codeLabel, icon])
-        stv.alignment = .center
-        stv.layer.borderColor = theme.colors.borderPrimary.cgColor
-        stv.layer.borderWidth = theme.appearance.borderWidth
-        stv.layer.cornerRadius = theme.appearance.cornerRadius
-        stv.isLayoutMarginsRelativeArrangement = true
-        stv.layoutMargins = UIEdgeInsets(
-            top: 0,
-            left: theme.appearance.padding,
-            bottom: 0,
-            right: theme.appearance.padding
-        )
-        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapCountrySelector))
-        stv.addGestureRecognizer(tap)
+    private lazy var phoneDropdown: GPDropdownTextField<GPPhoneDropdownCell> = {
+        /// HACK: The `placeholder` cause the width constraint which breaks layout
+        /// For phone dropdown, no need placeholder as set default phone country code
+        let dropdown = GPDropdownTextField<GPPhoneDropdownCell>(
+            options: allCountries,
+            title: "Select country",
+            placeholder: "",
+            hasSearchOption: true,
+            presentingVC: presentingViewController ?? UIViewController(),
+            theme: theme
+        ) { [weak self] selectedCountry in
+            guard let self, let selectedCountry = selectedCountry as? GPPhoneDropdownOption else { return }
+            updateCountryUI(to: selectedCountry.value)
+        }
+        dropdown.setPlainTextField()
         
-        return stv
+        return dropdown
     }()
+    
     private lazy var flagLabel: UILabel = {
         let label = UILabel()
         label.font = theme.typography.body1
         label.setContentHuggingPriority(.required, for: .horizontal)
         return label
-    }()
-    private lazy var codeLabel: UILabel = {
-        let label = UILabel()
-        label.font = theme.typography.body1
-        label.textColor = theme.colors.textPrimary
-        label.setContentHuggingPriority(.required, for: .horizontal)
-        label.setContentCompressionResistancePriority(.required, for: .horizontal)
-        return label
-    }()
-    private lazy var icon: UIImageView = {
-        let icon = UIImageView(image: GPAssets.icDropdown.image)
-        icon.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        icon.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        return icon
     }()
     
     lazy var phoneTextField: GPFormTextField = {
@@ -74,7 +61,7 @@ public class GPPhoneTextField: GPBaseTextField {
     }
     
     public override func getChildViews() -> [UIView] {
-        return [phoneCodeView, phoneTextField]
+        return [phoneDropdown, phoneTextField]
     }
     
     // MARK: - Init
@@ -106,27 +93,6 @@ public class GPPhoneTextField: GPBaseTextField {
         updateCountryUI(to: selectedRegion)
     }
     
-    // MARK: - Actions
-    @objc private func didTapCountrySelector() {
-        guard let vc = presentingViewController else { return }
-        
-        let sheet = GPDropdownSheetViewController<GPPhoneDropdownCell>(
-            options: allCountries,
-            selectedOption: selectedOption,
-            navBarTitle: "Select country",
-            hasSearchOption: true,
-            theme: theme
-        )
-        
-        sheet.onSelect = { [weak self] selectedCountry in
-            guard let self, let selected = selectedCountry as? GPPhoneDropdownOption else { return }
-            self.selectedOption = selectedCountry
-            self.updateCountryUI(to: selected.value)
-        }
-        
-        vc.presentAsBottomSheet(sheet, theme: theme)
-    }
-    
     // MARK: - Helpers
     private func updateCountryUI(to regionCode: String) {
         selectedRegion = regionCode
@@ -136,12 +102,12 @@ public class GPPhoneTextField: GPBaseTextField {
             phoneTextField.placeholder = example
         }
         if let code = phoneNumberKit.countryCode(for: regionCode) {
-            codeLabel.text = "+\(code)"
+            let phoneCode = "+\(code)"
+            phoneDropdown.setText(phoneCode)
         }
         
-        UIView.transition(with: phoneTextField, duration: 0.25, options: .transitionCrossDissolve, animations: {
-            self.flagLabel.text = regionCode.getFlagScalar()
-        }, completion: nil)
+        flagLabel.text = regionCode.getFlagScalar()
+        phoneDropdown.applyIconView(flagLabel, on: .Left, animated: true)
     }
     
     func unformat(_ text: String?) -> String {

@@ -10,7 +10,7 @@ import UIKit
 public class GPBaseTextField: UIView, FormElementType {
     
     // MARK: - Properties
-    private let title: String
+    let title: String
     public let theme: GPTheme
     
     /// Placeholder text (triggers `setPlaceholder` on update)
@@ -42,13 +42,21 @@ public class GPBaseTextField: UIView, FormElementType {
     var isError: Bool = false
     
     // MARK: - UI Elements
-    private let mainStackView = UIStackView()
+    private let mainStackView: UIStackView = {
+        let stv = UIStackView()
+        stv.axis = .vertical
+        stv.spacing = 4
+        return stv
+    }()
     
     /// Stack that contains all text field(s)
     public lazy var tfStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.spacing = 8
-        return stack
+        let stv = UIStackView()
+        stv.spacing = 8
+        stv.distribution = .fill
+        stv.alignment = .fill
+        stv.heightAnchor.constraint(equalToConstant: height).isActive = true
+        return stv
     }()
     
     /// Title label shown above the text field(s)
@@ -92,15 +100,12 @@ public class GPBaseTextField: UIView, FormElementType {
     }
     
     private func setupLayout() {
-        mainStackView.axis = .vertical
-        mainStackView.spacing = 4
         mainStackView.addArrangedSubview(titleLabel)
         mainStackView.addArrangedSubview(tfStackView)
         mainStackView.addArrangedSubview(errorView)
         
         addAndPinSubview(mainStackView)
-        
-        tfStackView.heightAnchor.constraint(equalToConstant: height).isActive = true
+      
         errorView.isHidden = true
     }
     

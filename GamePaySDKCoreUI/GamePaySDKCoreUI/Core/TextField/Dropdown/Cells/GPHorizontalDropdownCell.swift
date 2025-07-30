@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GPHorizontalDropdownCell: GPBaseDropdownCell {
+public class GPHorizontalDropdownCell: GPBaseDropdownCell {
     let stackView = UIStackView()
     let divider = UIView()
 

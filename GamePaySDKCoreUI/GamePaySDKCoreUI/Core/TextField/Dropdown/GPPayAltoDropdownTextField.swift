@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class GPPayAltoDropdownTextField: GPDropdownTextField, FormElement {
+public class GPPayAltoDropdownTextField: GPDropdownTextField<GPIconTextDropdownCell>, FormElement {
     public var view: UIView { self }
     public var formKey: String?
     public var formValue: String {
@@ -19,16 +19,20 @@ public class GPPayAltoDropdownTextField: GPDropdownTextField, FormElement {
         options: [GPDropdownOption],
         title: String,
         placeholder: String,
+        hasSearchOption: Bool = false,
         presentingVC: UIViewController,
-        theme: GPTheme
+        theme: GPTheme,
+        onSelect: ((GPDropdownOption) -> Void)? = nil
     ) {
         self.formKey = formKey
         super.init(
             options: options,
             title: title,
             placeholder: placeholder,
+            hasSearchOption: hasSearchOption,
             presentingVC: presentingVC,
-            theme: theme
+            theme: theme,
+            onSelect: onSelect
         )
     }
     

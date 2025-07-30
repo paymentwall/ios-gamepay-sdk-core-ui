@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class GPDropdownTextField: GPFormTextField {
+public class GPDropdownTextField<T: GPBaseDropdownCell>: GPFormTextField {
     
     // MARK: - Properties
     public var selectedValue: String {
@@ -18,17 +18,23 @@ public class GPDropdownTextField: GPFormTextField {
     private weak var presentingViewController: UIViewController?
     private var selectedOption: GPDropdownOption?
     private let dropdownIcon = GPAssets.icDropdown.image
+    private let hasSearchOption: Bool
+    private let onSelect: ((GPDropdownOption) -> Void)?
     
     // MARK: - Initializer
     public init(
         options: [GPDropdownOption],
         title: String,
         placeholder: String,
+        hasSearchOption: Bool = false,
         presentingVC: UIViewController,
-        theme: GPTheme
+        theme: GPTheme,
+        onSelect: ((GPDropdownOption) -> Void)? = nil
     ) {
         self.options = options
+        self.hasSearchOption = hasSearchOption
         self.presentingViewController = presentingVC
+        self.onSelect = onSelect
         super.init(title: title, placeholder: placeholder, theme: theme)
         setupView()
     }
@@ -50,10 +56,13 @@ public class GPDropdownTextField: GPFormTextField {
     @objc private func didTapDropdown() {
         guard let viewController = presentingViewController else { return }
         
-        let sheet = GPDropdownSheetViewController<GPIconTextDropdownCell>(
+        let navBarTitle = placeholder.isEmpty ? title : placeholder
+        
+        let sheet = GPDropdownSheetViewController<T>(
             options: options,
             selectedOption: selectedOption,
-            navBarTitle: placeholder,
+            navBarTitle: navBarTitle,
+            hasSearchOption: hasSearchOption,
             theme: theme
         )
         
@@ -61,10 +70,10 @@ public class GPDropdownTextField: GPFormTextField {
             guard let self = self else { return }
             self.selectedOption = selected
             self.setText(selected.name)
-            
             if let logoUrl = selected.logoUrl {
                 self.setIcon(from: logoUrl, on: .Left, animated: true)
             }
+            onSelect?(selected)
         }
         
         viewController.presentAsBottomSheet(sheet, theme: theme)
