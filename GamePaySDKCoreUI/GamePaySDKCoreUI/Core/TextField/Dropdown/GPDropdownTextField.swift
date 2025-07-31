@@ -17,7 +17,7 @@ public class GPDropdownTextField<T: GPBaseDropdownCell>: GPFormTextField {
     private let options: [GPDropdownOption]
     private weak var presentingViewController: UIViewController?
     private var selectedOption: GPDropdownOption?
-    private let dropdownIcon = GPAssets.icDropdown.image
+    private let dropdownIcon = GPCoreUIAssets.icDropdown.image
     private let hasSearchOption: Bool
     private let onSelect: ((GPDropdownOption) -> Void)?
     

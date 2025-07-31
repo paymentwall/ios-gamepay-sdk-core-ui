@@ -12,15 +12,12 @@ let package = Package(
             name: "GamePaySDKCoreUI",
             targets: ["GamePaySDKCoreUI"]),
     ],
-    dependencies: [],
     targets: [
         .target(
             name: "GamePaySDKCoreUI",
             dependencies: [],
-            path: "GamePaySDKCoreUI/GamePaySDKCoreUI",
-            resources: [
-                .process("Resources")
-            ]
+            path: "GamePaySDKCoreUI/GamePaySDKCoreUI"
         )
-    ]
+    ],
+    swiftLanguageModes: [.v5]
 )

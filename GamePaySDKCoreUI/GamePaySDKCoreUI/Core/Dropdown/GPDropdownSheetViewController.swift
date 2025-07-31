@@ -82,7 +82,7 @@ class GPDropdownSheetViewController<T: GPBaseDropdownCell>: UIViewController, UI
         titleLabel.setContentHuggingPriority(.required, for: .vertical)
         titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
 
-        closeButton.setImage(GPAssets.icCloseNavBar.image, for: .normal)
+        closeButton.setImage(GPCoreUIAssets.icCloseNavBar.image, for: .normal)
         closeButton.tintColor = .label
         closeButton.addTarget(self, action: #selector(dismissSheet), for: .touchUpInside)
         closeButton.translatesAutoresizingMaskIntoConstraints = false

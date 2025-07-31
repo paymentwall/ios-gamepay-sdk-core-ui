@@ -41,11 +41,11 @@ public class GPPrimaryButton: GPBaseButton {
     }
     
     override func createLoadingImage() -> UIImage? {
-        GPAssets.icLoading.image
+        GPCoreUIAssets.icLoading.image
     }
     
     override func createSuccessImage() -> UIImage? {
-        GPAssets.ic_success.image
+        GPCoreUIAssets.ic_success.image
     }
     
     override func getHeight() -> CGFloat? {

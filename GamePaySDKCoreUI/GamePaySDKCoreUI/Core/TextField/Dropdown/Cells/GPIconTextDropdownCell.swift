@@ -23,7 +23,7 @@ public class GPIconTextDropdownCell: GPHorizontalDropdownCell {
     }()
     private let selectedIconView: UIImageView = {
         let view = UIImageView()
-        view.image = GPAssets.icCheckmark.image
+        view.image = GPCoreUIAssets.icCheckmark.image
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: 24).isActive = true
         view.heightAnchor.constraint(equalToConstant: 24).isActive = true

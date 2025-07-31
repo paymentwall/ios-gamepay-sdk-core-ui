@@ -29,6 +29,11 @@ public class GPBaseTextField: UIView, FormElementType {
         fatalError("Subclasses must override `validationText`.")
     }
     
+    /// Get max length of input
+    public var maxLength: Int? {
+        inputFormatter?.maxLength
+    }
+    
     public var parentTextField: GPBaseTextField? {
         var view = superview
         while let current = view {

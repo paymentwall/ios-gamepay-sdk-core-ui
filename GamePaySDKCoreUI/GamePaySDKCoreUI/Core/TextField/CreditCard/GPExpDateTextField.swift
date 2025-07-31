@@ -28,6 +28,14 @@ struct ExpDateFormatter: TextFieldFormatter {
 public class GPExpDateTextField: GPFormTextField {
     private let prefixYear = "20"
     
+    public var expMonth: String {
+        String(validationText.prefix(2))
+    }
+    
+    public var expYear: String {
+        String(validationText.suffix(2))
+    }
+    
     public init(theme: GPTheme) {
         super.init(
             title: "Exp. Date",

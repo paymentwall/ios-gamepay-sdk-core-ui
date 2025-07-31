@@ -29,6 +29,6 @@ public class GPCVVTextField: GPFormTextField {
     
     private func setupView() {
         textField.keyboardType = .numberPad
-        setIcon(GPAssets.icCVV.image, on: .Right, useTemplate: false)
+        setIcon(GPCoreUIAssets.icCVV.image, on: .Right, useTemplate: false)
     }
 }

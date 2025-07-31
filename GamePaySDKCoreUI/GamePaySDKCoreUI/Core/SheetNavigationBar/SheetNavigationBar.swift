@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol SheetNavigationBarDelegate: AnyObject {
+public protocol SheetNavigationBarDelegate: AnyObject {
     func sheetNavigationBarDidClose(_ sheetNavigationBar: SheetNavigationBar)
     func sheetNavigationBarDidBack(_ sheetNavigationBar: SheetNavigationBar)
 }
 
-class SheetNavigationBar: UIView {
-    enum Style {
+public class SheetNavigationBar: UIView {
+    public enum Style {
         case close(showAdditionalButton: Bool)
         case back(showAdditionalButton: Bool)
         case none
@@ -33,7 +33,7 @@ class SheetNavigationBar: UIView {
     
     lazy var closeButtonRight: UIButton = {
         let button = SheetNavigationButton(type: .custom)
-        button.setImage(GPAssets.icCloseNavBar.image.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.setImage(GPCoreUIAssets.icCloseNavBar.image.withRenderingMode(.alwaysTemplate), for: .normal)
         button.tintColor = theme.colors.borderPrimary
         return button
     }()
@@ -42,19 +42,19 @@ class SheetNavigationBar: UIView {
     
     lazy var backButton: UIButton = {
        let button = SheetNavigationButton(type: .custom)
-       button.setImage(GPAssets.icArrowBack.image.withRenderingMode(.alwaysTemplate), for: .normal)
+       button.setImage(GPCoreUIAssets.icArrowBack.image.withRenderingMode(.alwaysTemplate), for: .normal)
        button.tintColor = theme.colors.borderPrimary
        return button
    }()
     
     // MARK: - Properties
     static let height: CGFloat = 48
-    weak var delegate: SheetNavigationBarDelegate?
+    public weak var delegate: SheetNavigationBarDelegate?
     let theme: GPTheme
     private let isTestMode: Bool
     
     // MARK: - Lifecyles
-    init(isTestMode: Bool = false, theme: GPTheme) {
+    public init(isTestMode: Bool = false, theme: GPTheme) {
         self.theme = theme
         self.isTestMode = isTestMode
         super.init(frame: .zero)
@@ -88,7 +88,7 @@ class SheetNavigationBar: UIView {
     }
     
     // MARK: - Setups
-    override var intrinsicContentSize: CGSize {
+    public override var intrinsicContentSize: CGSize {
         return CGSize(width: UIView.noIntrinsicMetric, height: Self.height)
     }
     
@@ -102,7 +102,7 @@ class SheetNavigationBar: UIView {
         delegate?.sheetNavigationBarDidBack(self)
     }
 
-    func setStyle(_ style: Style) {
+    public func setStyle(_ style: Style) {
         switch style {
         case .back(_):
             closeButtonRight.isHidden = true

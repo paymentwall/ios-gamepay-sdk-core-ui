@@ -9,7 +9,7 @@ import UIKit
 
 public final class ErrorView: UIView {
     private let iconImageView: UIImageView = {
-        let imageView = UIImageView(image: GPAssets.icError.image)
+        let imageView = UIImageView(image: GPCoreUIAssets.icError.image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

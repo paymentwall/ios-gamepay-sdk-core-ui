@@ -13,7 +13,7 @@ class ButtonDemoViewController: UIViewController {
     @IBOutlet weak var stvContainer: UIStackView!
     lazy var btnPrimaryActive: GPPrimaryButton = {
         let btn = GPPrimaryButton(theme: theme)
-        btn.config(title: "Primary Active", icon: GPAssets.ic_success.image.withRenderingMode(.alwaysTemplate)) {
+        btn.config(title: "Primary Active", icon: GPCoreUIAssets.ic_success.image.withRenderingMode(.alwaysTemplate)) {
             btn.setState(.loading)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 btn.setState(.success)
