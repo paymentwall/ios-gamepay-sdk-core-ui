@@ -5,6 +5,8 @@
 //  Created by Luke Nguyen on 24/7/25.
 //
 
+import Foundation
+
 struct ExpDateFormatter: TextFieldFormatter {
     var maxLength: Int { 5 } // MM/YY
 

@@ -5,6 +5,8 @@
 //  Created by Luke Nguyen on 28/7/25.
 //
 
+import Foundation
+
 class GPPhoneDropdownOption: GPDropdownOption {
     let phoneCode: UInt64?
     var flag: String?
