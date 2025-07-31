@@ -16,7 +16,7 @@ import UIKit
 /// viewController.modalPresentationStyle = .custom
 /// viewController.transitioningDelegate = BottomSheetTransitioningDelegate.default
 /// ```
-class BottomSheetTransitioningDelegate: NSObject {
+public class BottomSheetTransitioningDelegate: NSObject {
 
     static var theme: GPTheme = GPThemeStore.defaultTheme
 
@@ -34,7 +34,7 @@ extension BottomSheetTransitioningDelegate: UIViewControllerTransitioningDelegat
     /**
      Returns a modal presentation animator configured for the presenting state
      */
-    func animationController(
+    public func animationController(
         forPresented presented: UIViewController,
         presenting: UIViewController,
         source: UIViewController
@@ -45,7 +45,7 @@ extension BottomSheetTransitioningDelegate: UIViewControllerTransitioningDelegat
     /**
      Returns a modal presentation animator configured for the dismissing state
      */
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return BottomSheetPresentationAnimator(transitionStyle: .dismissal)
     }
 
@@ -53,7 +53,7 @@ extension BottomSheetTransitioningDelegate: UIViewControllerTransitioningDelegat
      Returns a modal presentation controller to coordinate the transition from the presenting
      view controller to the presented view controller.
      */
-    func presentationController(
+    public func presentationController(
         forPresented presented: UIViewController,
         presenting: UIViewController?,
         source: UIViewController

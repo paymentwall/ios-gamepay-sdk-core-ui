@@ -51,8 +51,8 @@ public class GPPanTextField: GPFormTextField {
 
     private func setupView() {
         textField.keyboardType = .numberPad
-        setIcon(GPAssets.icCardNumber.image, on: .Left)
-        setIcon(GPAssets.icScanCard.image, on: .Right)
+        setIcon(GPCoreUIAssets.icCardNumber.image, on: .Left)
+        setIcon(GPCoreUIAssets.icScanCard.image, on: .Right)
     }
     
     private func updateCardIcon() {

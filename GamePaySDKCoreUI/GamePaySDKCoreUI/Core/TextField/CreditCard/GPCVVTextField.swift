@@ -5,6 +5,8 @@
 //  Created by Luke Nguyen on 24/7/25.
 //
 
+import Foundation
+
 struct CVVFormatter: TextFieldFormatter {
     var maxLength: Int { 4 }
 }
@@ -27,6 +29,6 @@ public class GPCVVTextField: GPFormTextField {
     
     private func setupView() {
         textField.keyboardType = .numberPad
-        setIcon(GPAssets.icCVV.image, on: .Right, useTemplate: false)
+        setIcon(GPCoreUIAssets.icCVV.image, on: .Right, useTemplate: false)
     }
 }

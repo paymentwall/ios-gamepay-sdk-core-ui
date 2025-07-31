@@ -22,9 +22,9 @@ public class GPSearchTextField: GPFormTextField {
     
     private func setupView() {
         setPlainTextField()
-        setIcon(GPAssets.icSearch.image, on: .Left)
+        setIcon(GPCoreUIAssets.icSearch.image, on: .Left)
         
-        clearButton.setImage(GPAssets.icCloseNavBar.image, for: .normal)
+        clearButton.setImage(GPCoreUIAssets.icCloseNavBar.image, for: .normal)
         clearButton.tintColor = theme.colors.borderPrimary
         clearButton.isHidden = true
         clearButton.addTarget(self, action: #selector(clearTapped), for: .touchUpInside)

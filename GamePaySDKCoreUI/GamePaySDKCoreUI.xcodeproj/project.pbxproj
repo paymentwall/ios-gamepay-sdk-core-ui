@@ -25,22 +25,9 @@
 		BA6F8C972E30F3D800D72B29 /* GamePaySDKCoreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GamePaySDKCoreUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		BA6F8C9F2E30F3D800D72B29 /* Exceptions for "GamePaySDKCoreUI" folder in "GamePaySDKCoreUI" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			publicHeaders = (
-				GamePaySDKCoreUI.h,
-			);
-			target = BA6F8C8C2E30F3D800D72B29 /* GamePaySDKCoreUI */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		BA6F8C8F2E30F3D800D72B29 /* GamePaySDKCoreUI */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				BA6F8C9F2E30F3D800D72B29 /* Exceptions for "GamePaySDKCoreUI" folder in "GamePaySDKCoreUI" target */,
-			);
 			path = GamePaySDKCoreUI;
 			sourceTree = "<group>";
 		};
@@ -243,6 +230,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -276,6 +264,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

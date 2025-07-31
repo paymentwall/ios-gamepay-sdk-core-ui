@@ -84,7 +84,7 @@ public class DropDownMessageView: UIView {
     }()
     private lazy var closeButton: UIView = {
         let closeButton = GPQuaternaryButton(theme: theme)
-        closeButton.config(icon: GPAssets.icCloseNavBar.image) { [weak self] in
+        closeButton.config(icon: GPCoreUIAssets.icCloseNavBar.image) { [weak self] in
             self?.closeButtonTapped()
         }
         closeButton.setSize(.init(width: 32, height: 32))
@@ -152,16 +152,16 @@ public class DropDownMessageView: UIView {
         switch type {
         case .info:
             backgroundColor = theme.colors.bgInfo
-            ivIcon.image = GPAssets.icInfo.image
+            ivIcon.image = GPCoreUIAssets.icInfo.image
         case .success:
             backgroundColor = theme.colors.bgSuccess
-            ivIcon.image = GPAssets.ic_success.image
+            ivIcon.image = GPCoreUIAssets.ic_success.image
         case .warning:
             backgroundColor = theme.colors.bgWarning
-            ivIcon.image = GPAssets.icWarning.image
+            ivIcon.image = GPCoreUIAssets.icWarning.image
         case .error:
             backgroundColor = theme.colors.bgError
-            ivIcon.image = GPAssets.icError.image
+            ivIcon.image = GPCoreUIAssets.icError.image
         }
         
         // set up data

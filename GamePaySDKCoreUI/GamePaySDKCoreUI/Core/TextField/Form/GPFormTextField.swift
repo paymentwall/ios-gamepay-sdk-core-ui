@@ -23,7 +23,7 @@ public class GPFormTextField: GPBaseTextField {
     }
     
     // MARK: - UI Properties
-    let textField = UITextField()
+    public let textField = UITextField()
     
     // MARK: - Init
     public override init(
@@ -78,12 +78,12 @@ public class GPFormTextField: GPBaseTextField {
     }
     
     // MARK: - Public APIs
-    func setText(_ text: String) {
+    public func setText(_ text: String) {
         textField.text = text
         textField.sendActions(for: .editingChanged)
     }
     
-    func setPlainTextField() {
+    public func setPlainTextField() {
         titleLabel.isHidden = true
         errorView.isHidden = true
     }

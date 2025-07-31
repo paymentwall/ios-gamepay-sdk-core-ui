@@ -8,9 +8,17 @@
 import UIKit
 
 public class BundleProvider { }
-let GamePaySDKCoreUIBundle = Bundle(for: BundleProvider.self)
 
-public enum GPAssets: String {
+// Use a more reliable way to get the bundle that works with SPM
+public let GamePaySDKCoreUIBundle: Bundle = {
+    #if SWIFT_PACKAGE
+    return Bundle.module
+    #else
+    return Bundle(for: BundleProvider.self)
+    #endif
+}()
+
+public enum GPCoreUIAssets: String {
     public var image: UIImage {
         return UIImage(named: self.rawValue,
                        in: GamePaySDKCoreUIBundle,

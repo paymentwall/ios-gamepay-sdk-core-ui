@@ -5,6 +5,8 @@
 //  Created by Luke Nguyen on 24/7/25.
 //
 
+import Foundation
+
 extension String {
     func chunked(into size: Int) -> [String] {
         var result: [String] = []

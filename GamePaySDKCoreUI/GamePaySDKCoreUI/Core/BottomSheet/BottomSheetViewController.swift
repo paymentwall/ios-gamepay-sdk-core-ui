@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol BottomSheetContentViewController: UIViewController {
+public protocol BottomSheetContentViewController: UIViewController {
     /// - Note: Implementing `navigationBar` as a computed variable will result in undefined behavior.
     var navigationBar: SheetNavigationBar { get }
     var requiresFullScreen: Bool { get }
     func didTapOrSwipeToDismiss()
 }
 
-class BottomSheetViewController: UIViewController, BottomSheetPresentable {
+public class BottomSheetViewController: UIViewController, BottomSheetPresentable {
     struct Constants {
         static let keyboardAvoidanceEdgePadding: CGFloat = 16
     }
@@ -41,7 +41,7 @@ class BottomSheetViewController: UIViewController, BottomSheetPresentable {
     private(set) var contentStack: [BottomSheetContentViewController] = []
     
     /// Content offset of the scroll view as a percentage (0 - 1.0) of the total height.
-    var contentOffsetPercentage: CGFloat {
+    public var contentOffsetPercentage: CGFloat {
         get {
             guard scrollView.contentSize.height > scrollView.bounds.height else { return 0 }
             return scrollView.contentOffset.y / (scrollView.contentSize.height - scrollView.bounds.height)
@@ -61,7 +61,7 @@ class BottomSheetViewController: UIViewController, BottomSheetPresentable {
     }
     
     // MARK: - Lifecycle
-    required init(contentViewController: BottomSheetContentViewController, theme: GPTheme) {
+    public required init(contentViewController: BottomSheetContentViewController, theme: GPTheme) {
         self.contentViewController = contentViewController
         self.theme = theme
         
@@ -80,7 +80,7 @@ class BottomSheetViewController: UIViewController, BottomSheetPresentable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
     }
@@ -238,7 +238,7 @@ class BottomSheetViewController: UIViewController, BottomSheetPresentable {
     
     var completeBottomSheetPresentationTransition: ((Bool) -> Void)?
     
-    func setViewControllers(_ viewControllers: [BottomSheetContentViewController]) {
+    public func setViewControllers(_ viewControllers: [BottomSheetContentViewController]) {
         contentStack = viewControllers
         if let top = viewControllers.first {
             updateContent(to: top)
@@ -327,13 +327,13 @@ class BottomSheetViewController: UIViewController, BottomSheetPresentable {
         })
     }
     
-    func didTapOrSwipeToDismiss() {
+    public func didTapOrSwipeToDismiss() {
         contentViewController.didTapOrSwipeToDismiss()
     }
 }
 
 extension BottomSheetViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y > 0 {
             contentViewController.navigationBar.setShadowHidden(false)
         } else {
@@ -343,7 +343,7 @@ extension BottomSheetViewController: UIScrollViewDelegate {
 }
 
 extension BottomSheetViewController: UIAdaptivePresentationControllerDelegate {
-    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+    public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
         // On iPad, tapping outside the sheet dismisses it without informing us - so we override this method to be informed.
         didTapOrSwipeToDismiss()
         return false
@@ -352,14 +352,14 @@ extension BottomSheetViewController: UIAdaptivePresentationControllerDelegate {
 
 // MARK: - UIGestureRecognizerDelegate
 extension BottomSheetViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(
+    public func gestureRecognizer(
         _ gestureRecognizer: UIGestureRecognizer,
         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
     ) -> Bool {
         return true
     }
 
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch)
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch)
         -> Bool
     {
         // I can't find another way to allow custom UIControl subclasses to receive touches

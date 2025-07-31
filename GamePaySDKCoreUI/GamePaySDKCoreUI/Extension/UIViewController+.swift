@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIViewController {
+public extension UIViewController {
     var rootParent: UIViewController {
         if let parent = parent {
             return parent.rootParent
