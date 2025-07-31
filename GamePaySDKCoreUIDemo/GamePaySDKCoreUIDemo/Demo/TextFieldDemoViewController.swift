@@ -16,7 +16,7 @@ class TextFieldDemoViewController: UIViewController, FormViewValidatable {
     
     // MARK: - UI Elements
     @IBOutlet weak var stvContainer: UIStackView!
-    private lazy var allTextFields: [GPBaseTextField] = [searchTextField, phoneTextField, emailField, panField, expDateField, cvvField, dropdownTextField]
+    private lazy var allTextFields: [GPBaseTextField] = [dobTextField, phoneTextField, emailField, panField, expDateField, cvvField, dropdownTextField]
     
     lazy var demoButton: UIButton = {
         let btn = UIButton(type: .system)
@@ -60,12 +60,25 @@ class TextFieldDemoViewController: UIViewController, FormViewValidatable {
         return search
     }()
     
+    private lazy var dobTextField: GPDoBTextField = {
+        let dob = GPDoBTextField(dateFormat: "dd/MM/yyyy", presentingVC: self, theme: theme)
+        return dob
+    }()
+    
     // MARK: - Properties
     private let theme = GPThemeStore.defaultTheme
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTapEndEditing()
+        
+        searchTextField.accessibilityIdentifier = "searchTextField"
+        phoneTextField.accessibilityIdentifier = "phoneTextField"
+        emailField.accessibilityIdentifier = "emailField"
+        panField.accessibilityIdentifier = "panField"
+        expDateField.accessibilityIdentifier = "expDateField"
+        cvvField.accessibilityIdentifier = "cvvField"
+        dropdownTextField.accessibilityIdentifier = "dropdownTextField"
         
         allTextFields.forEach {
             stvContainer.addArrangedSubview($0)
@@ -76,6 +89,14 @@ class TextFieldDemoViewController: UIViewController, FormViewValidatable {
     }
     
     private func setupRules() {
+        validator.registerField(
+            dobTextField,
+            rules: [
+                RequiredRule(),
+                DoBRule(format: "dd/MM/yyyy", minimumAge: 18)
+            ]
+        )
+        
         validator.registerField(emailField, rules: [
             RequiredRule(message: AppMessage.Validation.EmailEmpty),
             EmailRule()

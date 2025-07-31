@@ -17,6 +17,7 @@ public class GPDropdownTextField<T: GPBaseDropdownCell>: GPFormTextField {
     private let options: [GPDropdownOption]
     private weak var presentingViewController: UIViewController?
     private var selectedOption: GPDropdownOption?
+    private var dropdownTitle: String?
     private let dropdownIcon = GPAssets.icDropdown.image
     private let hasSearchOption: Bool
     private let onSelect: ((GPDropdownOption) -> Void)?
@@ -25,6 +26,7 @@ public class GPDropdownTextField<T: GPBaseDropdownCell>: GPFormTextField {
     public init(
         options: [GPDropdownOption],
         title: String,
+        dropdownTitle: String? = nil,
         placeholder: String,
         hasSearchOption: Bool = false,
         presentingVC: UIViewController,
@@ -32,6 +34,7 @@ public class GPDropdownTextField<T: GPBaseDropdownCell>: GPFormTextField {
         onSelect: ((GPDropdownOption) -> Void)? = nil
     ) {
         self.options = options
+        self.dropdownTitle = dropdownTitle
         self.hasSearchOption = hasSearchOption
         self.presentingViewController = presentingVC
         self.onSelect = onSelect
@@ -56,12 +59,10 @@ public class GPDropdownTextField<T: GPBaseDropdownCell>: GPFormTextField {
     @objc private func didTapDropdown() {
         guard let viewController = presentingViewController else { return }
         
-        let navBarTitle = placeholder.isEmpty ? title : placeholder
-        
         let sheet = GPDropdownSheetViewController<T>(
             options: options,
             selectedOption: selectedOption,
-            navBarTitle: navBarTitle,
+            navBarTitle: dropdownTitle ?? placeholder,
             hasSearchOption: hasSearchOption,
             theme: theme
         )

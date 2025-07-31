@@ -126,6 +126,18 @@ public class GPBaseTextField: UIView, FormElementType {
     open func setPlaceholder() { }
     
     // MARK: - Error Handler
+
+    /// Displays an error message for this text field only.
+    ///
+    /// - Parameter message: The error message to display. If `nil`, the error view is not shown.
+    ///
+    /// This method sets the error state for the current text field and displays the provided error message
+    /// in the error view. If the text field contains child `GPBaseTextField` instances (e.g., in a composite field),
+    /// it recursively calls `showError(message: nil)` on each child to clear their error state
+    ///  Only the parent text field (the one this method is called on) will show the actual error message.
+    ///
+    /// Subclasses (such as `GPFormTextField`) can override this method to provide additional error UI,
+    /// such as changing the border color.
     public func showError(message: String?) {
         guard !isError else { return }
         
@@ -135,13 +147,22 @@ public class GPBaseTextField: UIView, FormElementType {
             subview.showError(message: nil)
         }
         
-        if message != nil {
+        if let message {
             errorView.setText(message)
             errorView.isHidden = false
             invalidateIntrinsicContentSize()
         }
     }
     
+    /// Hides the error state for this text field and all of its child text fields.
+    ///
+    /// This method clears the error state for the current text field and recursively calls `hideError()`
+    /// on all child `GPBaseTextField` instances contained within its `tfStackView`. This ensures that
+    /// any error messages or error UI are removed from both the parent and all descendants.
+    ///
+    /// After hiding its own error view, it also attempts to hide the error state of its parent text field,
+    /// if one exists. Subclasses (such as `GPFormTextField`) can override this method to reset additional
+    /// error UI, such as restoring the border color.
     public func hideError() {
         guard isError else { return }
         

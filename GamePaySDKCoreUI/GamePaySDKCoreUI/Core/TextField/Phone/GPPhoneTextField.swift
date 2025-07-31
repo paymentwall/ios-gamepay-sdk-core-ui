@@ -27,7 +27,8 @@ public class GPPhoneTextField: GPBaseTextField {
         /// For phone dropdown, no need placeholder as set default phone country code
         let dropdown = GPDropdownTextField<GPPhoneDropdownCell>(
             options: allCountries,
-            title: "Select country",
+            title: "",
+            dropdownTitle: "Select country",
             placeholder: "",
             hasSearchOption: true,
             presentingVC: presentingViewController ?? UIViewController(),

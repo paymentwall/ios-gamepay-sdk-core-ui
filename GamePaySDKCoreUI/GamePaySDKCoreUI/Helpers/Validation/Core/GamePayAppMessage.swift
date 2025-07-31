@@ -21,5 +21,11 @@ public enum AppMessage {
         
         public static let CVVEmpty = "Your CVV is empty"
         public static let CVVInvalidFormat = "Your CVV is empty or invalid"
+        
+        static let DateOfBirthInvalidFormat = "Date of birth format is invalid."
+        static let DateOfBirthInFuture = "Date of birth cannot be in the future."
+        static func DateOfBirthTooYoung(minAge: Int) -> String {
+            return "You must be at least \(minAge) years old."
+        }
     }
 }
