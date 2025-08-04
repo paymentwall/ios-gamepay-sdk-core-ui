@@ -10,6 +10,7 @@ import UIKit
 public protocol BottomSheetContentViewController: UIViewController {
     /// - Note: Implementing `navigationBar` as a computed variable will result in undefined behavior.
     var navigationBar: SheetNavigationBar { get }
+    var footerView: UIView? { get }
     var requiresFullScreen: Bool { get }
     func didTapOrSwipeToDismiss()
 }
@@ -35,7 +36,9 @@ public class BottomSheetViewController: UIViewController, BottomSheetPresentable
     }()
 
     private lazy var contentContainerView: UIStackView = {
-        return UIStackView()
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        return stackView
     }()
 
     private(set) var contentStack: [BottomSheetContentViewController] = []
@@ -72,6 +75,9 @@ public class BottomSheetViewController: UIViewController, BottomSheetPresentable
         addChild(contentViewController)
         contentViewController.didMove(toParent: self)
         contentContainerView.addArrangedSubview(contentViewController.view)
+        if let footerView = contentViewController.footerView {
+            contentContainerView.addArrangedSubview(footerView)
+        }
         navigationBarContainerView.addArrangedSubview(contentViewController.navigationBar)
         self.view.backgroundColor = theme.colors.bgDefaultLight
     }
@@ -115,12 +121,13 @@ public class BottomSheetViewController: UIViewController, BottomSheetPresentable
         ])
         
         contentContainerView.translatesAutoresizingMaskIntoConstraints = false
-        contentContainerView.directionalLayoutMargins = NSDirectionalEdgeInsets(
-            top: 0,
-            leading: theme.appearance.padding,
-            bottom: 40,
-            trailing: theme.appearance.padding
-        )
+//        contentContainerView.directionalLayoutMargins = NSDirectionalEdgeInsets(
+//            top: 0,
+//            leading: 0,
+//            bottom: view.safeAreaInsets.bottom,
+//            trailing: 0
+//        )
+//        contentContainerView.isLayoutMarginsRelativeArrangement = true
         scrollView.addSubview(contentContainerView)
         
         // Give the scroll view a desired height
@@ -264,7 +271,8 @@ public class BottomSheetViewController: UIViewController, BottomSheetPresentable
         // instead of remaining pinned to the top.
 
         // First, get the old height of the content + navigation bar + safe area.
-        manualHeightConstraint.constant = oldContentViewController.view.frame.size.height + navigationBarContainerView.bounds.size.height
+//        manualHeightConstraint.constant = oldContentViewController.view.frame.size.height + navigationBarContainerView.bounds.size.height
+        manualHeightConstraint.constant = contentContainerView.frame.size.height + navigationBarContainerView.bounds.size.height
 
         // Take a snapshot of the old content and add it to our container - we'll fade it out
         let oldView = oldContentViewController.view!
@@ -274,6 +282,7 @@ public class BottomSheetViewController: UIViewController, BottomSheetPresentable
         // Remove the old VC
         oldContentViewController.beginAppearanceTransition(false, animated: true)
         oldContentViewController.view.removeFromSuperview()
+        oldContentViewController.footerView?.removeFromSuperview()
         oldContentViewController.endAppearanceTransition()
 
         // Add the new VC
@@ -281,6 +290,9 @@ public class BottomSheetViewController: UIViewController, BottomSheetPresentable
         // When your custom container calls the addChild(_:) method, it automatically calls the willMove(toParent:) method of the view controller to be added as a child before adding it.
         addChild(newContentViewController)
         contentContainerView.addArrangedSubview(self.contentViewController.view)
+        if let footerView = contentViewController.footerView {
+            contentContainerView.addArrangedSubview(footerView)
+        }
         if let presentationController = rootParent.presentationController as? BottomSheetPresentationController {
             presentationController.forceFullHeight = newContentViewController.requiresFullScreen
         }
@@ -292,7 +304,8 @@ public class BottomSheetViewController: UIViewController, BottomSheetPresentable
         navigationBarContainerView.addArrangedSubview(newContentViewController.navigationBar)
         navigationBarContainerView.layoutIfNeeded()
         // Layout is mostly completed at this point. The new height is the navigation bar + content
-        let newHeight = newContentViewController.view.bounds.size.height + navigationBarContainerView.bounds.size.height
+//        let newHeight = newContentViewController.view.bounds.size.height + navigationBarContainerView.bounds.size.height
+        let newHeight = contentContainerView.bounds.size.height + navigationBarContainerView.bounds.size.height
 
         // Force the old height, then force a layout pass
         if modalPresentationStyle == .custom { // Only if we're using the custom presentation style (e.g. pinned to the bottom)
