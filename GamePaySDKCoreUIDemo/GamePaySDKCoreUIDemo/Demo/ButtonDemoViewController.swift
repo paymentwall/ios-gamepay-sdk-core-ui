@@ -69,6 +69,11 @@ class ButtonDemoViewController: UIViewController {
         return btn
     }()
     
+    lazy var footer: GPFooter = {
+        let footer = GPFooter(logoImage: .init(named: "ic_pw_logo")!, termsURL: URL(string: "https://google.com.vn")!, privacyURL: URL(string: "https://google.com.vn")!, theme: theme)
+        return footer
+    }()
+    
     private let theme = GPThemeStore.defaultTheme
     
     override func viewDidLoad() {
@@ -77,6 +82,7 @@ class ButtonDemoViewController: UIViewController {
         for button in buttons {
             stvContainer.addArrangedSubview(button)
         }
+        stvContainer.addArrangedSubview(footer)
         view.addSubview(btnQuaternaryActive)
         NSLayoutConstraint.activate([
             btnQuaternaryActive.topAnchor.constraint(equalTo: stvContainer.bottomAnchor, constant: 16),

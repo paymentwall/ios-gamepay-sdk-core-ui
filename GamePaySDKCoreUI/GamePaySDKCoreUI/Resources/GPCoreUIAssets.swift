@@ -25,6 +25,12 @@ public enum GPCoreUIAssets: String {
                        compatibleWith: nil) ?? UIImage()
     }
     
+    public var color: UIColor {
+        return UIColor(named: self.rawValue,
+                       in: GamePaySDKCoreUIBundle,
+                       compatibleWith: nil) ?? UIColor()
+    }
+    
     // MARK: - Images
     case icCloseNavBar = "ic_close_nav_bar"
     case icArrowBack = "ic_arrow_back"
@@ -47,4 +53,25 @@ public enum GPCoreUIAssets: String {
     case icSearch = "ic_search"
     case icWarning = "ic_warning"
     case icInfo = "ic_info"
+    
+    // MARK: - Colors
+    case white000 = "White000"
+    case lavender050 = "Lavender050"
+    case lavender100 = "Lavender100"
+    case lavender200 = "Lavender200"
+    case lavender300 = "Lavender300"
+    case steelBlue300 = "SteelBlue300"
+    case steelBlue500 = "SteelBlue500"
+    case steelBlue800 = "SteelBlue800"
+    case steelBlue900 = "SteelBlue900"
+    case semanticBlue800 = "SemanticBlue800"
+    case semanticYellow800 = "SemanticYellow800"
+    case semanticRed800 = "SemanticRed800"
+    case semanticGreen800 = "SemanticGreen800"
+    case backgroundBlue700 = "BackgroundBlue700"
+    case backgroundYellow700 = "BackgroundYellow700"
+    case backgroundRed700 = "BackgroundRed700"
+    case backgroundGreen700 = "BackgroundGreen700"
+    case backgroundBlack900 = "BackgroundBlack900"
+    case accentDarkBlue900 = "AccentDarkBlue900"
 }

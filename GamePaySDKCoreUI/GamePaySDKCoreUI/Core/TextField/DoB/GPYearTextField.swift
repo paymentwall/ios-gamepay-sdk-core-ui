@@ -5,6 +5,7 @@
 //  Created by Luke Nguyen on 31/7/25.
 //
 
+import Foundation
 
 struct YearFormatter: TextFieldFormatter {
     var maxLength: Int { 4 }

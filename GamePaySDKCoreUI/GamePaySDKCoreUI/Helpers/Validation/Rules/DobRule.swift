@@ -4,7 +4,7 @@
 //
 //  Created by Luke Nguyen on 31/7/25.
 //
-
+import Foundation
 
 public class DoBRule: Rule {
     var message: String = ""
